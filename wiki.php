@@ -67,16 +67,33 @@ function check_login(){
       else{
 	      $db_name = 'wikidb'; 
 	      // use the @ to suppress php/psql error message
-	      $con = @pg_connect("host=localhost dbname=wikidb user=$usr password=$pwd");
+	      $file = 'auth.txt';
+	      $lines = file($file);
+	      $master_usr = $lines[0];
+	      $master_pwd = $lines[1];
+
+	      $con = @pg_connect("host=localhost dbname=wikidb user=$master_usr password=$master_pwd");
 	     
 	      if ($con){
-	       $_SESSION['LOGGED_IN'] = 1;
-	       
-	       // this is a bad idea... pwd is too open...
-	       $_SESSION['USR_NAME'] = $usr;
-	       $_SESSION['PASSWORD'] = $pwd;
+            	    $result = pg_prepare($con, "check_login", 'SELECT * FROM users WHERE name = $1');
+            	    $result = pg_execute($con, "check_login", array($usr));
+
+            	    if ($result){
+			$user_data = pg_fetch_all($result)[0];
+			pg_free_result($result);
+			pg_close($con);
+			if ($user_data != NULL){
+				$stored_pwd = $user_data['pwdhash'];
+				if ($stored_pwd == $pwd){
+				       $_SESSION['LOGGED_IN'] = 1;
+				       
+				       $_SESSION['USR_NAME'] = $usr;
+				}
+				else echo "Incorrect Credentials.";
+			}
+			else echo "Incorrect Credentials.";
+            	    }
 	      }
-	      else echo "Incorrect Credentials.";
 	    }
       }
 }
