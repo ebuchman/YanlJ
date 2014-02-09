@@ -6,6 +6,8 @@
 </head>
 
 <body>
+<?php if ($_SERVER['HTTPS'] !== 'on') {
+    die("Must be a secure connection."); }?>
 
 <?php include("wiki.php"); ?>
 
