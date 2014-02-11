@@ -25,21 +25,24 @@ function get_entry_data(name){
         if (xmlhttp.readyState==4 && xmlhttp.status==200){
             var content = xmlhttp.responseText;
             document.getElementById('entry_content_box').innerHTML = content;
-            //MathJax.Hub.Queue(["Typeset",MathJax.Hub,"entry_content_box"]); 
+
             MathJax.Hub.Typeset('entry_content_box');
 
-            // prevent escaping backslashes (for mathjax) when content gets sent to edit_entry_data
-            //  but this is a bug if the text itself has a backslash - makes it uneditable!!!
-            content = content.replace(/\\/g, '\\\\');
+            // edit and delete links, built dynamically
+            var delete_form = document.getElementById('delete_entry_form');
+            var delete_link = document.getElementById('delete_link');
+            var delete_name_input = document.getElementById('delete_name_input');
+            var edit_link = document.getElementById('edit_link');
+        
+            delete_link.href="javascript:;"; 
+            delete_name_input.value=name;
+            delete_link.onclick = function(){delete_form.submit();};
+            delete_link.innerHTML="delete";
 
-            //edit and delete links, as html in a js var. Use innerHTML.
-            var eddel = '<form id="delete_entry" style="display:inline-block;" action="" method="post" > \
-            <a href="javascript:;" onClick="document.getElementById(\'delete_entry\').submit();">delete</a>  \
-            <input type="hidden" name="entry_to_delete" value="' + name + '" > \
-        </form>  &nbsp&nbsp \
-        <a href="#" id="edit_link" onClick="edit_entry_data(\'' + name + '\', \'' + content + '\');">edit</a></div> ';
-            
-           document.getElementById('edit_delete_links').innerHTML = eddel;   
+            edit_link.href="#";
+            edit_link.onclick= function(){edit_entry_data(name, content);};
+            edit_link.innerHTML="edit";
+
            document.getElementById('content_header').innerHTML = "<h4>"+name+"</h4>";
         }
     }
@@ -71,10 +74,16 @@ function edit_entry_data(name, content){
     }
 ?>
 
-<div id="edit_delete_links" style="position:fixed; top:500px; left:300px;"></div>
+<div id="edit_delete_links" style="position:fixed; top:500px; left:300px;">
+    <form id="delete_entry_form" style="display:inline-block;"  action="" method="post" >
+        <a id="delete_link"></a> 
+        <input id="delete_name_input" type="hidden" name="entry_to_delete">
+    </form>
+    <a id="edit_link"></a>
+</div>
 <div id="big_content_box" style="position:fixed; top:400px; left:300px;">
-<div id="content_header"></div>
-<div id="entry_content_box"></div>
+    <div id="content_header"></div>
+    <div id="entry_content_box"></div>
 </div>
 
 <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>"  method="post" style="position:fixed; top:20px; right:100px;"><p>	
