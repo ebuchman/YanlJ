@@ -1,4 +1,7 @@
 <?php
+
+// page content functions
+
 function load_recent_posts(){
     if (htmlspecialchars($_SESSION['LOGGED_IN'])){
         $usr = pg_escape_string($_SESSION['USR_NAME']);
@@ -36,6 +39,7 @@ function load_new_entry_form(){?>
         </div>
 <?php }
 
+// database functions
 
 function add_new_entry($con){
     if (isset($_POST['new_entry'])){
@@ -64,7 +68,7 @@ function add_new_entry($con){
 }
 
 
-function edit_delete(){
+function delete_entry(){
     if (isset($_POST['entry_to_delete'])){
         if (htmlspecialchars($_SESSION['LOGGED_IN'])){
             $usr = pg_escape_string($_SESSION['USR_NAME']);
