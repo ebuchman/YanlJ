@@ -1,6 +1,7 @@
 
 
 function get_entry_data(name){
+
     if (window.XMLHttpRequest)
         xmlhttp=new XMLHttpRequest();
     else

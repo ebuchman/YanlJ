@@ -6,18 +6,22 @@ function load_recent_posts(){
     if (htmlspecialchars($_SESSION['LOGGED_IN'])){
         $usr = htmlspecialchars(pg_escape_string($_SESSION['USR_NAME']));
         $pwd = htmlspecialchars(pg_escape_string($_SESSION['PASSWORD']));
+
         $db_name = 'wikidb'; 
 
         $con = pg_connect("host=localhost dbname=wikidb user=$usr password=$pwd");
         if ($con)
         { 
             add_new_entry($con);
+
             $sql = "SELECT * FROM Entries";
-            $result = pg_query($con, $sql);
-            ?>
+            $result = pg_query($con, $sql);	?>
+
             <div style="position:fixed; top:100px; left:50px;">
+
             <?php while ($row = pg_fetch_array($result)) { 
                 $this_name = htmlspecialchars($row[0]);
+		//$this_name = pg_escape_identifier($row[0]);
                 echo "<p><a href=\"#\" onClick=\"get_entry_data('" . $this_name . "');\" >" .  $this_name . " </a> </p>";
              }
 
@@ -48,21 +52,23 @@ function add_new_entry($con){
         { 
             $name = htmlspecialchars(pg_escape_string($_POST['entry_name']));
             $content = htmlspecialchars(pg_escape_string($_POST['entry_content']));
-            if (pg_query($con, "SELECT * FROM Entries WHERE entryname = '$name'")){
-                /* couldnt get the UPDATE working...
-                echo $content;
-                $sql = "UPDATE Entries SET entry='$content' WHERE entryname='$name'";
-                $result = pg_query($con, $sql);
-                echo pg_fetch_row($result);
-                 */
-                $sql="DELETE FROM Entries WHERE entryname= '$name'";
-                $result = pg_query($con, $sql);
-            }
-            //else{
 
-                $sql = "INSERT INTO Entries VALUES ('$name', '$content')";
-                $result = pg_query($con, $sql);
-            //}
+	    $result = pg_prepare($con, "check_entry", 'SELECT * FROM Entries WHERE entryname = $1');
+	    $result = pg_execute($con, "check_entry", array($name));
+
+            if ($result){
+
+		// can we update entries instead of replacing them?
+
+		// note this prepared statement is already built in another function!
+		$result = pg_prepare($con, "del_entry", 'DELETE FROM Entries WHERE entryname=$1');
+		$result = pg_execute($con, "del_entry", array($name));
+
+            }
+
+	    $result = pg_prepare($con, "add_entry", 'INSERT INTO Entries VALUES ($1, $2)');
+	    $result = pg_execute($con, "add_entry", array($name, $content));
+
         }	
     }
 }
@@ -75,14 +81,14 @@ function delete_entry(){
             $pwd = htmlspecialchars(pg_escape_string($_SESSION['PASSWORD']));
             $db_name = 'wikidb'; 
 
+    	    // not necessary since we are using prepared statements.
             $entry_to_delete = htmlspecialchars(pg_escape_string($_POST['entry_to_delete']));
-            //echo $_POST['entry_to_delete'];
 
             $con = pg_connect("host=localhost dbname=wikidb user=$usr password=$pwd");
             if ($con)
             { 
-                $sql = "DELETE FROM Entries WHERE entryname='". $entry_to_delete ."';";
-                $result = pg_query($con, $sql);
+		$result = pg_prepare($con, "del_entry", 'DELETE FROM Entries WHERE entryname=$1');
+		$result = pg_execute($con, "del_entry", array($entry_to_delete));
 
                 pg_free_result($result);
                 pg_close($con);
