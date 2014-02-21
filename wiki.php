@@ -76,7 +76,6 @@ function delete_entry(){
             $db_name = 'wikidb'; 
 
             $entry_to_delete = pg_escape_string($_POST['entry_to_delete']);
-
             $con = pg_connect("host=localhost dbname=wikidb user=$usr password=$pwd");
             if ($con)
             { 
