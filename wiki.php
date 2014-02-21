@@ -4,8 +4,8 @@
 
 function load_recent_posts(){
     if (htmlspecialchars($_SESSION['LOGGED_IN'])){
-        $usr = pg_escape_string($_SESSION['USR_NAME']);
-        $pwd = pg_escape_string($_SESSION['PASSWORD']);
+        $usr = htmlspecialchars(pg_escape_string($_SESSION['USR_NAME']));
+        $pwd = htmlspecialchars(pg_escape_string($_SESSION['PASSWORD']));
         $db_name = 'wikidb'; 
 
         $con = pg_connect("host=localhost dbname=wikidb user=$usr password=$pwd");
@@ -17,7 +17,7 @@ function load_recent_posts(){
             ?>
             <div style="position:fixed; top:100px; left:50px;">
             <?php while ($row = pg_fetch_array($result)) { 
-                $this_name = $row[0];
+                $this_name = htmlspecialchars($row[0]);
                 echo "<p><a href=\"#\" onClick=\"get_entry_data('" . $this_name . "');\" >" .  $this_name . " </a> </p>";
              }
 
@@ -46,8 +46,8 @@ function add_new_entry($con){
 
         if ($con)
         { 
-            $name = htmlspecialchars($_POST['entry_name']);
-            $content = htmlspecialchars($_POST['entry_content']);
+            $name = htmlspecialchars(pg_escape_string($_POST['entry_name']));
+            $content = htmlspecialchars(pg_escape_string($_POST['entry_content']));
             if (pg_query($con, "SELECT * FROM Entries WHERE entryname = '$name'")){
                 /* couldnt get the UPDATE working...
                 echo $content;
@@ -71,11 +71,13 @@ function add_new_entry($con){
 function delete_entry(){
     if (isset($_POST['entry_to_delete'])){
         if (htmlspecialchars($_SESSION['LOGGED_IN'])){
-            $usr = pg_escape_string($_SESSION['USR_NAME']);
-            $pwd = pg_escape_string($_SESSION['PASSWORD']);
+            $usr = htmlspecialchars(pg_escape_string($_SESSION['USR_NAME']));
+            $pwd = htmlspecialchars(pg_escape_string($_SESSION['PASSWORD']));
             $db_name = 'wikidb'; 
 
-            $entry_to_delete = pg_escape_string($_POST['entry_to_delete']);
+            $entry_to_delete = htmlspecialchars(pg_escape_string($_POST['entry_to_delete']));
+            //echo $_POST['entry_to_delete'];
+
             $con = pg_connect("host=localhost dbname=wikidb user=$usr password=$pwd");
             if ($con)
             { 
@@ -93,8 +95,8 @@ function delete_entry(){
 
 function check_login(){
     if (isset($_POST['login'])){
-      $usr = pg_escape_string($_POST['usr']);
-      $pwd = pg_escape_string($_POST['pwd']);
+      $usr = htmlspecialchars(pg_escape_string($_POST['usr']));
+      $pwd = htmlspecialchars(pg_escape_string($_POST['pwd']));
       // is this a bad idea?
       $_SESSION['USR_NAME'] = $usr;
       $_SESSION['PASSWORD'] = $pwd;
