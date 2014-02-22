@@ -109,7 +109,7 @@ function check_login(){
 
       $db_name = 'wikidb'; 
       // use the @ to suppress php/psql error message
-      $con =@pg_connect("host=localhost dbname=wikidb user=$usr password=$pwd");
+      $con = @pg_connect("host=localhost dbname=wikidb user=$usr password=$pwd");
      
       if ($con)
        $_SESSION['LOGGED_IN'] = 1;
@@ -147,7 +147,7 @@ function present_login(){
 }
 
 function https(){ 
- if (!isset($_SERVER['HTTPS'])) {
+ if ($_SERVER['HTTPS'] != 'on') {
     echo "<h2>YanlJ is only accessible over a secure connection.  Try <a href=https://".htmlspecialchars($_SERVER['HTTP_HOST']).">here</a></h2>" ;die(); }
      
 }
