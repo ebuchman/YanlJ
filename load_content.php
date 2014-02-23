@@ -17,11 +17,8 @@ function load_entry_content($entry_name){
 	    $result = pg_prepare($con, "get_content", 'SELECT * FROM Entries WHERE entryname = $1');
 	    $result = pg_execute($con, "get_content", array($escaped_entry_name));
 
-            //$sql = "SELECT * FROM Entries WHERE entryname = '$escaped_entry_name'";
-            //$result = pg_query($con, $sql);
-
-            while($row = pg_fetch_array($result))
-                echo htmlspecialchars($row[1]);
+            $row = pg_fetch_array($result);
+            echo htmlspecialchars($row[1]);
 
             pg_free_result($result);
             pg_close($con);

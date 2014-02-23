@@ -11,7 +11,7 @@ function get_entry_data(name){
         if (xmlhttp.readyState==4 && xmlhttp.status==200){
             var content = xmlhttp.responseText;
             document.getElementById('entry_content_box').innerHTML = content;
-
+            
             MathJax.Hub.Typeset('entry_content_box');
 
             // edit and delete links, built dynamically

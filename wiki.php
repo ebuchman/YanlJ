@@ -21,8 +21,7 @@ function load_recent_posts(){
 
             <?php while ($row = pg_fetch_array($result)) { 
                 $this_name = htmlspecialchars($row[0]);
-		//$this_name = pg_escape_identifier($row[0]);
-                echo "<p><a href=\"#\" onClick=\"get_entry_data('" . $this_name . "');\" >" .  $this_name . " </a> </p>";
+                echo "<p><a href=\"#\" onClick=\"get_entry_data('" . addslashes($this_name) . "');\" >" .  $this_name . " </a> </p>";
              }
 
             pg_free_result($result);
@@ -50,8 +49,8 @@ function add_new_entry($con){
 
         if ($con)
         { 
-            $name = htmlspecialchars(pg_escape_string($_POST['entry_name']));
-            $content = htmlspecialchars(pg_escape_string($_POST['entry_content']));
+            $name = $_POST['entry_name'];
+            $content = $_POST['entry_content'];
 
 	    $result = pg_prepare($con, "check_entry", 'SELECT * FROM Entries WHERE entryname = $1');
 	    $result = pg_execute($con, "check_entry", array($name));
@@ -81,8 +80,7 @@ function delete_entry(){
             $pwd = htmlspecialchars(pg_escape_string($_SESSION['PASSWORD']));
             $db_name = 'wikidb'; 
 
-    	    // not necessary since we are using prepared statements.
-            $entry_to_delete = htmlspecialchars(pg_escape_string($_POST['entry_to_delete']));
+            $entry_to_delete = $_POST['entry_to_delete'];
 
             $con = pg_connect("host=localhost dbname=wikidb user=$usr password=$pwd");
             if ($con)
