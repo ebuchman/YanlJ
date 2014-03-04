@@ -24,19 +24,21 @@
 ?>
 
 
-<div id="edit_delete_links" style="position:fixed; top:500px; left:300px;">
-    <form id="delete_entry_form" style="display:inline-block;"  action="" method="post" >
-        <a id="delete_link"></a> 
-        <input id="delete_name_input" type="hidden" name="entry_to_delete">
-    </form>
-    <a id="edit_link"></a>
-</div>
+<div id=content_unit style="position:fixed; top:400px; left:300px;">
 
-<div id="big_content_box" style="position:fixed; top:400px; left:300px;">
-    <div id="content_header"></div>
-    <div id="entry_content_box"></div>
+	<div id="big_content_box">
+	    <div id="content_header"></div>
+	    <div id="entry_content_box"></div>
+	</div>
+	<p>
+	<div id="edit_delete_links" style="position:static">
+	    <form id="delete_entry_form" style="display:inline-block;"  action="" method="post" >
+		<a id="delete_link"></a> 
+		<input id="delete_name_input" type="hidden" name="entry_to_delete">
+	    </form>
+	    <a id="edit_link"></a>
+	</div>
 </div>
-
 
 <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>"  method="post" style="position:fixed; top:20px; right:100px;"><p>	
 <input type="submit" name="exit" value="Logout">
