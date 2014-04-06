@@ -9,6 +9,9 @@ function get_entry_data(name){
 
     xmlhttp.onreadystatechange=function(){
         if (xmlhttp.readyState==4 && xmlhttp.status==200){
+	    var entry_div_box = document.getElementById('entry_div_box');
+	    entry_div_box.style.display = "block";
+
             var content = xmlhttp.responseText;
             document.getElementById('entry_content_box').innerHTML = content;
             

@@ -17,7 +17,7 @@ function load_recent_posts(){
             $sql = "SELECT * FROM Entries";
             $result = pg_query($con, $sql);	?>
 
-            <div style="position:fixed; top:100px; left:50px;">
+            <div>
 
             <?php while ($row = pg_fetch_array($result)) { 
                 $this_name = htmlspecialchars($row[0]);
@@ -33,12 +33,14 @@ function load_recent_posts(){
 
 function load_new_entry_form(){?>
 
-        <div>
-        <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>"  method="post" style="position:fixed; top:100px; left:300px;"><p>
-        <h4>Add a new entry below:</h4>
-        Entry Name: <input id="new_entry_name_box" type="text" name="entry_name"><p>
-        Entry Content: <textarea  id="new_entry_content_box" name="entry_content" rows=5 cols=50></textarea><p>
-        <input type="submit" name="new_entry" value="Add Entry"></form>
+        <div class="new_entry_div">
+		<div class="entry">
+			<form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>"  method="post"><p>
+			<h4>Add a new entry below:</h4>
+			Entry Name: <input id="new_entry_name_box" type="text" name="entry_name"><p>
+			Entry Content: <textarea  id="new_entry_content_box" name="entry_content" rows=5 cols=50></textarea><p>
+			<input type="submit" name="new_entry" value="Add Entry"></form>
+		</div>
         </div>
 <?php }
 
@@ -129,24 +131,26 @@ function check_logout(){
 
 function present_login(){
     if(!$_SESSION['LOGGED_IN']) : ?>
-        <h3>Welcome <?php echo htmlspecialchars($_SERVER['REMOTE_ADDR']) ?>. Please log in to use the wiki</h3>
+	<div class="loginbox">
+		<h3>Welcome <?php echo htmlspecialchars($_SERVER['REMOTE_ADDR']) ?>. Please log in to use the wiki</h3>
 
-        <?php // Note: $_SERVER['PHP_SELF'] comes from the url and is an attack vector.  Must be escaped.  Or, just use $_SERVER['SCRIPT_NAME'] ?>
-        <form action="<?php htmlspecialchars($_SERVER['SCRIPT_NAME']); ?>" method="post">
-          Username: <input type="text" name="usr">
-          <p>
-          Password: <input type="password" name="pwd">
-          <p>
-          <input type="submit" name="login" value="Login">
-        </form> 
+		<?php // Note: $_SERVER['PHP_SELF'] comes from the url and is an attack vector.  Must be escaped.  Or, just use $_SERVER['SCRIPT_NAME'] ?>
+		<form action="<?php htmlspecialchars($_SERVER['SCRIPT_NAME']); ?>" method="post">
+		  Username: <input type="text" name="usr">
+		  <p>
+		  Password: <input type="password" name="pwd">
+		  <p>
+		  <input type="submit" name="login" value="Login">
+		</form> 
+	</div>
     <?php else :
-        echo "<h3 style='position:fixed; top:50px; left:100; padding:10px;'>Hello, " .  htmlspecialchars($_SESSION['USR_NAME']) . ".  Enjoy using YanlJ</h3>" ;
+        echo "<h3>Hello, " .  htmlspecialchars($_SESSION['USR_NAME']) . ".  Enjoy using YanlJ</h3>" ;
     endif; 
 }
 
 function https(){ 
  if ($_SERVER['HTTPS'] != 'on') {
-    echo "<h2>YanlJ is only accessible over a secure connection.  Try <a href=https://".htmlspecialchars($_SERVER['HTTP_HOST']).">here</a></h2>" ;die(); }
+    echo "<h2 class='https'>YanlJ is only accessible over a secure connection.  Try <a href=https://".htmlspecialchars($_SERVER['HTTP_HOST']).">here</a></h2>" ;die(); }
      
 }
 

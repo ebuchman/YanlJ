@@ -4,6 +4,7 @@
 <html>
 <head>
 <title>YanlJ, a non-linear JanlY.</title>
+<link rel="stylesheet" type="text/css" href="style.css">
 <script type="text/javascript" src=scripts.js></script>
 <script type="text/javascript" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
 <script type="text/x-mathjax-config"> //MathJax.Hub.Config({ tex2jax: {inlineMath: [['$','$'], ['\\(','\\)'], processEscapes: true}}); </script>
@@ -23,9 +24,8 @@
     }
 ?>
 
-
-<div id=content_unit style="position:fixed; top:400px; left:300px;">
-
+<div id="entry_div_box" class="content_unit">
+	<div class="entry">
 	<div id="big_content_box">
 	    <div id="content_header"></div>
 	    <div id="entry_content_box"></div>
@@ -38,9 +38,10 @@
 	    </form>
 	    <a id="edit_link"></a>
 	</div>
+	</div>
 </div>
 
-<form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>"  method="post" style="position:fixed; top:20px; right:100px;"><p>	
+<form id="logout_button" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>"  method="post" ><p>	
 <input type="submit" name="exit" value="Logout">
 </form>
 
