@@ -66,3 +66,9 @@ function edit_entry_data(name, content){
     xmlhttp.send("name="+name);
     return false;
 }
+
+function close_bubble(id){
+ document.getElementById(id).remove();
+
+}
+

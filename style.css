@@ -49,7 +49,6 @@ h2.https
  position: absolute;
  top: 100px;
  left: 400px;
- width: 600px;
 }
 
 
@@ -74,3 +73,9 @@ h2.https
  top:20px;
  right:100px;
 }
+
+.x_button
+{
+ float:right;
+}
+

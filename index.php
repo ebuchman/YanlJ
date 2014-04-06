@@ -43,6 +43,7 @@
 
 	<div id="entry_div_box_proto">
 		<div class="entry">
+			<input type="submit" name="close_entry" value="x" class="x_button" onClick="close_bubble(this.parentNode.parentNode.id)">
 			<div class="big_content_box">
 			    <div class="content_header"></div>
 			    <div class="entry_content_box"></div>
