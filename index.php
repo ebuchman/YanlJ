@@ -8,9 +8,19 @@
 <script type="text/javascript" src=scripts.js></script>
 <script type="text/javascript" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
 <script type="text/x-mathjax-config"> //MathJax.Hub.Config({ tex2jax: {inlineMath: [['$','$'], ['\\(','\\)'], processEscapes: true}}); </script>
+<noscript>
+	<style type="text/css">
+		.pagecontainer{display:none;}
+	</style>
+	<h1> It appears javascript is disabled!</h1>
+ 	<h1>YanlJ uses asynchronous javascript requests to load content from the server without re-loading the page.</h1>
+	<h1>YanlJ does not use any third-party javascript libraries.</h1>
+	<h1>If you would like to access YanlJ, please enable javascript</h1>
+</noscript>
 </head>
 
 <body>
+<div class="pagecontainer">
 <?php include("wiki.php"); ?>
 <?php https(); ?>
 <h1>YanlJ, a non-linear JanlY</h1>
@@ -44,6 +54,6 @@
 <form id="logout_button" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>"  method="post" ><p>	
 <input type="submit" name="exit" value="Logout">
 </form>
-
+</div>
 </body>
 </html>
