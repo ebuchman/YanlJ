@@ -1,4 +1,7 @@
+function content_bubble_html(){
 
+
+}
 
 function get_entry_data(name){
 
@@ -11,9 +14,16 @@ function get_entry_data(name){
         if (xmlhttp.readyState==4 && xmlhttp.status==200){
 	    var entry_div_box = document.getElementById('entry_div_box');
 	    entry_div_box.style.display = "block";
-
+	
 	    var response = JSON.parse(xmlhttp.responseText);
 	    var content = response.content;
+	/*
+	    var workflow_div = document.getElementById('workflow');
+	    var new_div = document.createElement('div');
+	    new_div.setAttribute("class", "entry_div_box content_unit")
+
+	    this.workflow_div.appendChild(new_div);
+	*/
 
             document.getElementById('entry_content_box').innerHTML = content;
             

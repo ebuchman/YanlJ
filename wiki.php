@@ -17,11 +17,11 @@ function load_recent_posts(){
             $sql = "SELECT * FROM Entries";
             $result = pg_query($con, $sql);	?>
 
-            <div>
-
             <?php while ($row = pg_fetch_array($result)) { 
                 $this_name = htmlspecialchars($row[0]);
+		echo "<div class=\"post\">";
                 echo "<p><a href=\"#\" onClick=\"get_entry_data('" . addslashes($this_name) . "');\" >" .  $this_name . " </a> </p>";
+		echo "</div>";
              }
 
             pg_free_result($result);

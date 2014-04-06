@@ -26,29 +26,41 @@
 <h1>YanlJ, a non-linear JanlY</h1>
 <?php check_login(); check_logout(); present_login() ?>
 
-<?php 
-    if (htmlspecialchars($_SESSION['LOGGED_IN'])){
-        delete_entry();
-        load_recent_posts();
-        load_new_entry_form();
-    }
-?>
+<div id="recent_posts" class="content_unit">
+	<?php 
+	    if (htmlspecialchars($_SESSION['LOGGED_IN'])){
+		delete_entry();
+		load_recent_posts();
+	    }
+	?>
+</div>
 
-<div id="entry_div_box" class="content_unit">
-	<div class="entry">
-	<div id="big_content_box">
-	    <div id="content_header"></div>
-	    <div id="entry_content_box"></div>
+<div id="workflow">
+	<div id="new_entry" class="content_unit">
+	<?php 
+	    if (htmlspecialchars($_SESSION['LOGGED_IN'])){
+		load_new_entry_form();
+	    }
+	?>
 	</div>
-	<p>
-	<div id="edit_delete_links" style="position:static">
-	    <form id="delete_entry_form" style="display:inline-block;"  action="" method="post" >
-		<a id="delete_link"></a> 
-		<input id="delete_name_input" type="hidden" name="entry_to_delete">
-	    </form>
-	    <a id="edit_link"></a>
+
+	<div id="entry_div_box" class="content_unit">
+		<div class="entry">
+		<div id="big_content_box">
+		    <div id="content_header"></div>
+		    <div id="entry_content_box"></div>
+		</div>
+		<p>
+		<div id="edit_delete_links" style="position:static">
+		    <form id="delete_entry_form" style="display:inline-block;"  action="" method="post" >
+			<a id="delete_link"></a> 
+			<input id="delete_name_input" type="hidden" name="entry_to_delete">
+		    </form>
+		    <a id="edit_link"></a>
+		</div>
+		</div>
 	</div>
-	</div>
+
 </div>
 
 <form id="logout_button" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>"  method="post" ><p>	
