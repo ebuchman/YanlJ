@@ -12,7 +12,9 @@ function get_entry_data(name){
 	    var entry_div_box = document.getElementById('entry_div_box');
 	    entry_div_box.style.display = "block";
 
-            var content = xmlhttp.responseText;
+	    var response = JSON.parse(xmlhttp.responseText);
+	    var content = response.content;
+
             document.getElementById('entry_content_box').innerHTML = content;
             
             MathJax.Hub.Typeset('entry_content_box');
@@ -42,6 +44,22 @@ function get_entry_data(name){
 }
 
 function edit_entry_data(name, content){
-        document.getElementById('new_entry_name_box').value = name;
-        document.getElementById('new_entry_content_box').value = content;
+    if (window.XMLHttpRequest)
+        xmlhttp=new XMLHttpRequest();
+    else
+        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+
+    xmlhttp.onreadystatechange=function(){
+        if (xmlhttp.readyState==4 && xmlhttp.status==200){
+	    var response = JSON.parse(xmlhttp.responseText);
+	    var content = response.no_click;
+
+            document.getElementById('new_entry_name_box').value = name;
+            document.getElementById('new_entry_content_box').value = content;
+        }
+    }
+    xmlhttp.open("POST", "load_content.php", true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send("name="+name);
+    return false;
 }

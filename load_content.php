@@ -26,6 +26,8 @@ function load_entry_content($entry_name){
 	    $names = $matches[1];
 	    $clickables = $matches[2];
 
+	    $no_click = $content;
+
 	    foreach ($names as $i => $n){
 		//check if name in database
 		$result = pg_prepare($con, "check_content", 'SELECT count(1) FROM Entries WHERE entryname = $1');
@@ -39,9 +41,8 @@ function load_entry_content($entry_name){
 			$content = preg_replace("#\[\[$n\]\s\[$clickables[$i]\]\]#", $clickable, $content);
 		}
 	    } 
+	    echo json_encode(array("content"=>$content, "no_click"=>$no_click));	
 	    
-            echo $content;
-
 
             pg_free_result($result);
             pg_close($con);
