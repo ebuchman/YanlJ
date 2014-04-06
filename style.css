@@ -37,6 +37,9 @@ h2.https
  position: absolute;
  left: 20px;
  width: 250px;
+
+ resize:both;
+ overflow:auto;
 }
 
 .post
@@ -65,6 +68,9 @@ h2.https
 .entry_div_box
 {
  margin-top:20px;
+ position:relative;
+ resize:both;
+ overflow:auto;
 }
 
 #logout_button

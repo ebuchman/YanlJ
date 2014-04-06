@@ -1,6 +1,6 @@
 <?php session_start(); if (!isset($_SESSION['LOGGED_IN'])) $_SESSION['LOGGED_IN'] = 0;?>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!DOCTYPE html>
 <html>
 <head>
 <title>YanlJ, a non-linear JanlY.</title>
@@ -41,7 +41,7 @@
 		<?php load_new_entry_form(); ?>
 	</div>
 
-	<div id="entry_div_box_proto">
+	<div id="entry_div_box_proto" draggable="true">
 		<div class="entry">
 			<input type="submit" name="close_entry" value="x" class="x_button" onClick="close_bubble(this.parentNode.parentNode.id)">
 			<div class="big_content_box">
