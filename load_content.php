@@ -37,7 +37,7 @@ function load_entry_content($entry_name){
 
 		//replace position in content with clickable
 		if ($exists == 1){
-                	$clickable = "<a href=\"#\" onClick=\"get_entry_data('" . addslashes($n) . "');\" >" .  $clickables[$i] . " </a>";
+                	$clickable = "<a href=\"#/\" onClick=\"get_entry_data('" . addslashes($n) . "');\" >" .  $clickables[$i] . " </a>";
 			$content = preg_replace("#\[\[$n\]\s\[$clickables[$i]\]\]#", $clickable, $content);
 		}
 	    } 

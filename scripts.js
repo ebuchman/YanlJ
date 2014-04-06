@@ -1,7 +1,3 @@
-function content_bubble_html(){
-
-
-}
 
 function get_entry_data(name){
 
@@ -9,42 +5,39 @@ function get_entry_data(name){
         xmlhttp=new XMLHttpRequest();
     else
         xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-
     xmlhttp.onreadystatechange=function(){
         if (xmlhttp.readyState==4 && xmlhttp.status==200){
-	    var entry_div_box = document.getElementById('entry_div_box');
-	    entry_div_box.style.display = "block";
 	
 	    var response = JSON.parse(xmlhttp.responseText);
 	    var content = response.content;
-	/*
+
 	    var workflow_div = document.getElementById('workflow');
-	    var new_div = document.createElement('div');
-	    new_div.setAttribute("class", "entry_div_box content_unit")
+	    var proto = document.getElementById('entry_div_box_proto').cloneNode(true);
 
-	    this.workflow_div.appendChild(new_div);
-	*/
-
-            document.getElementById('entry_content_box').innerHTML = content;
-            
-            MathJax.Hub.Typeset('entry_content_box');
+            proto.getElementsByClassName('entry_content_box')[0].innerHTML = content;
+		
+            MathJax.Hub.Typeset(proto);
 
             // edit and delete links, built dynamically
-            var delete_form = document.getElementById('delete_entry_form');
-            var delete_link = document.getElementById('delete_link');
-            var delete_name_input = document.getElementById('delete_name_input');
-            var edit_link = document.getElementById('edit_link');
-        
+            var delete_form = proto.getElementsByClassName('delete_entry_form')[0];
+            var delete_link = proto.getElementsByClassName('delete_link')[0];
+            var delete_name_input = proto.getElementsByClassName('delete_name_input')[0];
+            var edit_link = proto.getElementsByClassName('edit_link')[0];
+ 
             delete_link.href="javascript:;"; 
             delete_name_input.value=name;
             delete_link.onclick = function(){delete_form.submit();};
             delete_link.innerHTML="delete";
 
-            edit_link.href="#";
+            edit_link.href="#/";
             edit_link.onclick= function(){edit_entry_data(name, content);};
             edit_link.innerHTML="edit";
 
-           document.getElementById('content_header').innerHTML = "<h4>"+name+"</h4>";
+            proto.getElementsByClassName('content_header')[0].innerHTML = "<h4>"+name+"</h4>";
+	    proto.setAttribute("class", "entry_div_box content_unit");
+	    proto.setAttribute("id", "entry_div_box".concat(name));
+
+	    workflow_div.appendChild(proto);
         }
     }
     xmlhttp.open("POST", "load_content.php", true);

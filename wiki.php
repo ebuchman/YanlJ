@@ -20,7 +20,7 @@ function load_recent_posts(){
             <?php while ($row = pg_fetch_array($result)) { 
                 $this_name = htmlspecialchars($row[0]);
 		echo "<div class=\"post\">";
-                echo "<p><a href=\"#\" onClick=\"get_entry_data('" . addslashes($this_name) . "');\" >" .  $this_name . " </a> </p>";
+                echo "<p><a href=\"#/\" onClick=\"get_entry_data('" . addslashes($this_name) . "');\" >" .  $this_name . " </a> </p>";
 		echo "</div>";
              }
 
@@ -131,7 +131,7 @@ function check_logout(){
 
 function present_login(){
     if(!$_SESSION['LOGGED_IN']) : ?>
-	<div class="loginbox">
+	<div class="loginbox content_unit">
 		<h3>Welcome <?php echo htmlspecialchars($_SERVER['REMOTE_ADDR']) ?>. Please log in to use the wiki</h3>
 
 		<?php // Note: $_SERVER['PHP_SELF'] comes from the url and is an attack vector.  Must be escaped.  Or, just use $_SERVER['SCRIPT_NAME'] ?>
@@ -150,8 +150,11 @@ function present_login(){
 
 function https(){ 
  if ($_SERVER['HTTPS'] != 'on') {
-    echo "<h2 class='https'>YanlJ is only accessible over a secure connection.  Try <a href=https://".htmlspecialchars($_SERVER['HTTP_HOST']).">here</a></h2>" ;die(); }
+    echo "<h2 class='https'>YanlJ is only accessible over a secure connection.  Try <a href=https://".htmlspecialchars($_SERVER['HTTP_HOST']).">here</a></h2>" ;
+    die();
+ }
      
 }
+
 
 ?>

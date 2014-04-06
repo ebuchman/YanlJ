@@ -21,51 +21,51 @@
 
 <body>
 <div class="pagecontainer">
+
 <?php include("wiki.php"); ?>
 <?php https(); ?>
 <h1>YanlJ, a non-linear JanlY</h1>
 <?php check_login(); check_logout(); present_login() ?>
 
+<?php if (htmlspecialchars($_SESSION['LOGGED_IN'])) { ?>
+
 <div id="recent_posts" class="content_unit">
-	<?php 
-	    if (htmlspecialchars($_SESSION['LOGGED_IN'])){
+	<?php 	
 		delete_entry();
 		load_recent_posts();
-	    }
 	?>
 </div>
 
 <div id="workflow">
 	<div id="new_entry" class="content_unit">
-	<?php 
-	    if (htmlspecialchars($_SESSION['LOGGED_IN'])){
-		load_new_entry_form();
-	    }
-	?>
+		<?php load_new_entry_form(); ?>
 	</div>
 
-	<div id="entry_div_box" class="content_unit">
+	<div id="entry_div_box_proto">
 		<div class="entry">
-		<div id="big_content_box">
-		    <div id="content_header"></div>
-		    <div id="entry_content_box"></div>
-		</div>
-		<p>
-		<div id="edit_delete_links" style="position:static">
-		    <form id="delete_entry_form" style="display:inline-block;"  action="" method="post" >
-			<a id="delete_link"></a> 
-			<input id="delete_name_input" type="hidden" name="entry_to_delete">
-		    </form>
-		    <a id="edit_link"></a>
-		</div>
+			<div class="big_content_box">
+			    <div class="content_header"></div>
+			    <div class="entry_content_box"></div>
+			</div>
+			<p>
+			<div class="edit_delete_links" style="position:static">
+			    <form class="delete_entry_form" style="display:inline-block;"  action="" method="post" >
+				<a class="delete_link"></a> 
+				<input class="delete_name_input" type="hidden" name="entry_to_delete">
+			    </form>
+			    <a class="edit_link"></a>
+			</div>
 		</div>
 	</div>
+
 
 </div>
+<?php } ?>
 
 <form id="logout_button" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>"  method="post" ><p>	
 <input type="submit" name="exit" value="Logout">
 </form>
+
 </div>
 </body>
 </html>
