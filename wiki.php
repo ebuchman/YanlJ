@@ -51,8 +51,8 @@ function add_new_entry($con){
 
         if ($con)
         { 
-            $name = $_POST['entry_name'];
-            $content = $_POST['entry_content'];
+            $name = htmlspecialchars($_POST['entry_name']);
+            $content = htmlspecialchars($_POST['entry_content']);
 
 	    $result = pg_prepare($con, "check_entry", 'SELECT * FROM Entries WHERE entryname = $1');
 	    $result = pg_execute($con, "check_entry", array($name));
@@ -130,7 +130,7 @@ function check_logout(){
     }
 
 function present_login(){
-    if(!$_SESSION['LOGGED_IN']) : ?>
+    if(!htmlspecialchars($_SESSION['LOGGED_IN'])) : ?>
 	<div class="loginbox content_unit">
 		<h3>Welcome <?php echo htmlspecialchars($_SERVER['REMOTE_ADDR']) ?>. Please log in to use the wiki</h3>
 
@@ -144,7 +144,8 @@ function present_login(){
 		</form> 
 	</div>
     <?php else :
-        echo "<h3>Hello, " .  htmlspecialchars($_SESSION['USR_NAME']) . ".  Enjoy using YanlJ</h3>" ;
+ 	$a = 3;
+	//        echo "<h3 id='hello'>Hello, " .  htmlspecialchars($_SESSION['USR_NAME']) . ".  Enjoy using YanlJ</h3>" ;
     endif; 
 }
 

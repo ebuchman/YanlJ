@@ -29,11 +29,22 @@
 
 <?php if (htmlspecialchars($_SESSION['LOGGED_IN'])) { ?>
 
-<div id="recent_posts" class="content_unit">
-	<?php 	
-		delete_entry();
-		load_recent_posts();
-	?>
+<?php echo "<h3 id='hello'>Hello, " .  htmlspecialchars($_SESSION['USR_NAME']) . ".  Enjoy using YanlJ</h3>" ; ?>
+
+<div class="left_scroll">
+	<div id="search" class="content_unit">
+		<form>
+		  <input id="search_box" type="text" name="db_search" onkeyup="displaySearchResults(this.value)">	
+		  <div id="search_results"></div>
+		</form>
+	</div>
+
+	<div id="recent_posts" class="content_unit">
+		<?php 	
+			delete_entry();
+			load_recent_posts();
+		?>
+	</div>
 </div>
 
 <div id="workflow">

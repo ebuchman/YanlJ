@@ -37,7 +37,7 @@ function get_entry_data(name){
 	    proto.setAttribute("class", "entry_div_box content_unit");
 	    proto.setAttribute("id", "entry_div_box".concat(name));
 
-	    workflow_div.appendChild(proto);
+	    workflow_div.insertBefore(proto, workflow_div.children[1]);
         }
     }
     xmlhttp.open("POST", "load_content.php", true);
@@ -71,4 +71,26 @@ function close_bubble(id){
  document.getElementById(id).remove();
 
 }
+
+
+function displaySearchResults(keystrokes){
+    if (keystrokes.length == 0)
+    { document.getElementById('search_results').innerHTML = ""; return;}
+
+    if (window.XMLHttpRequest)
+        xmlhttp=new XMLHttpRequest();
+    else
+        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+
+    xmlhttp.onreadystatechange=function(){
+        if (xmlhttp.readyState==4 && xmlhttp.status==200){
+	    document.getElementById('search_results').innerHTML = xmlhttp.responseText;
+        }
+    }
+    xmlhttp.open("POST", "search_db.php", true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send("keystrokes="+keystrokes);
+}
+
+
 

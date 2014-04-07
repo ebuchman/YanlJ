@@ -16,6 +16,30 @@ h2.https
  color:white;
 }
 
+#hello
+{
+ margin-left:20px;
+}
+
+.left_scroll
+{
+ margin-left:20px;
+
+}
+
+#search
+{
+ width:250px;
+ resize:both;
+ overflow:auto;
+}
+
+#search_box
+{
+ margin:5px;
+ width:200px;
+}
+
 .content_unit
 {
  border-style:solid;
@@ -34,8 +58,7 @@ h2.https
 
 #recent_posts
 {
- position: absolute;
- left: 20px;
+ margin-top:20px;
  width: 250px;
 
  resize:both;
