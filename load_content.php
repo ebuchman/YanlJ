@@ -18,15 +18,20 @@ function load_entry_content($entry_name){
 	    $result = pg_execute($con, "get_content", array($escaped_entry_name));
 
             $row = pg_fetch_array($result);
+	    
+	    // output ! Data is html cleaned as soon as it comes out of the database
+	    // the only HTML/script that should make it to the page is what follows, 
+	    // where entries are linked to eachother
+	    // however, we also return the entries without html protection, so the real text can be loaded into the edit space (which isn't rendered as html :D).
 	    $content = htmlspecialchars($row[1]);
-
-	    // find refs to other content and replace them with a link
+	    $no_click = $row[1];
+	    
+ 	    // find refs to other content and replace them with a link
 	    preg_match_all('#\[\[(.+?)\]\s\[(.+?)\]\]#', $content, $matches);
 
 	    $names = $matches[1];
 	    $clickables = $matches[2];
 
-	    $no_click = $content;
 
 	    foreach ($names as $i => $n){
 		//check if name in database

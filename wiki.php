@@ -30,7 +30,6 @@ function load_recent_posts(){
     }
 }
 
-
 function load_new_entry_form(){?>
 
         <div class="new_entry_div">
@@ -51,25 +50,31 @@ function add_new_entry($con){
 
         if ($con)
         { 
-            $name = htmlspecialchars($_POST['entry_name']);
-            $content = htmlspecialchars($_POST['entry_content']);
+            $name = $_POST['entry_name'];
+            $content = $_POST['entry_content'];
 
-	    $result = pg_prepare($con, "check_entry", 'SELECT * FROM Entries WHERE entryname = $1');
-	    $result = pg_execute($con, "check_entry", array($name));
+	    // we should do some validating here!  note html cleaning happens on the way out.  otherwise, we couldnt do math...
+	    if(preg_match('/[^a-z_\-0-9]/i', $name)){
+		echo "<div id='bad_name'><h3>Names may only contain alphanumeric characters and the underscore</h3></div>";
+	    }
+	
+	    else{
+		    $result = pg_prepare($con, "check_entry", 'SELECT * FROM Entries WHERE entryname = $1');
+		    $result = pg_execute($con, "check_entry", array($name));
 
-            if ($result){
+		    if ($result){
 
-		// can we update entries instead of replacing them?
+			// can we update entries instead of replacing them?
 
-		// note this prepared statement is already built in another function!
-		$result = pg_prepare($con, "del_entry", 'DELETE FROM Entries WHERE entryname=$1');
-		$result = pg_execute($con, "del_entry", array($name));
+			// note this prepared statement is already built in another function!
+			$result = pg_prepare($con, "del_entry", 'DELETE FROM Entries WHERE entryname=$1');
+			$result = pg_execute($con, "del_entry", array($name));
 
-            }
+		    }
 
-	    $result = pg_prepare($con, "add_entry", 'INSERT INTO Entries VALUES ($1, $2)');
-	    $result = pg_execute($con, "add_entry", array($name, $content));
-
+		    $result = pg_prepare($con, "add_entry", 'INSERT INTO Entries VALUES ($1, $2)');
+		    $result = pg_execute($con, "add_entry", array($name, $content));
+	    }
         }	
     }
 }
@@ -103,18 +108,25 @@ function check_login(){
     if (isset($_POST['login'])){
       $usr = htmlspecialchars(pg_escape_string($_POST['usr']));
       $pwd = htmlspecialchars(pg_escape_string($_POST['pwd']));
-      // is this a bad idea?
-      $_SESSION['USR_NAME'] = $usr;
-      $_SESSION['PASSWORD'] = $pwd;
 
-      $db_name = 'wikidb'; 
-      // use the @ to suppress php/psql error message
-      $con = @pg_connect("host=localhost dbname=wikidb user=$usr password=$pwd");
-     
-      if ($con)
-       $_SESSION['LOGGED_IN'] = 1;
-      else echo "Incorrect Credentials.";
-    }
+      // some shitty validation
+      if (count($usr) > 10 or count($pwd) > 15)
+	echo "Incorrect Credentials";
+      else{
+	      $db_name = 'wikidb'; 
+	      // use the @ to suppress php/psql error message
+	      $con = @pg_connect("host=localhost dbname=wikidb user=$usr password=$pwd");
+	     
+	      if ($con){
+	       $_SESSION['LOGGED_IN'] = 1;
+	       
+	       // this is a bad idea... pwd is too open...
+	       $_SESSION['USR_NAME'] = $usr;
+	       $_SESSION['PASSWORD'] = $pwd;
+	      }
+	      else echo "Incorrect Credentials.";
+	    }
+      }
 }
 function check_logout(){
     if (isset($_POST['exit'])){ 	

@@ -5,7 +5,7 @@
 <head>
 <title>YanlJ, a non-linear JanlY.</title>
 <link rel="stylesheet" type="text/css" href="style.css">
-<script type="text/javascript" src=scripts.js></script>
+<script type='text/javascript' src=scripts.js></script>
 <script type="text/javascript" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
 <script type="text/x-mathjax-config"> //MathJax.Hub.Config({ tex2jax: {inlineMath: [['$','$'], ['\\(','\\)'], processEscapes: true}}); </script>
 <noscript>
@@ -25,6 +25,9 @@
 <?php include("wiki.php"); ?>
 <?php https(); ?>
 <h1>YanlJ, a non-linear JanlY</h1>
+
+<h3 id="quote">Are you a general purpose computer looking for a particular purpose? Consider pursuing the general purpose, where progress towards particular purposes can be made without any particular purpose.</h3>
+
 <?php check_login(); check_logout(); present_login() ?>
 
 <?php if (htmlspecialchars($_SESSION['LOGGED_IN'])) { ?>

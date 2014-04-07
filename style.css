@@ -16,6 +16,18 @@ h2.https
  color:white;
 }
 
+#quote
+{
+ position:absolute;;
+ text-align:center;
+ left:450px;
+ top: 50px;
+ width: 400px;
+
+ font-style: italic;
+ color: #808090;
+}
+
 #hello
 {
  margin-left:20px;
@@ -52,6 +64,9 @@ h2.https
 .loginbox
 {
  width: 450px;
+ position:absolute;
+ top:200px;
+ left:420px;
  text-align:center;
  margin: 0 auto;
 }
@@ -73,7 +88,7 @@ h2.https
 #workflow
 {
  position: absolute;
- top: 100px;
+ top: 200px;
  left: 400px;
 }
 
