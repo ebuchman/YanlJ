@@ -24,17 +24,20 @@
 
 <?php include("wiki.php"); ?>
 <?php https(); ?>
-<h1>YanlJ, a non-linear JanlY</h1>
 
-<h3 id="quote">Are you a general purpose computer looking for a particular purpose? Consider pursuing the general purpose, where progress towards particular purposes can be made without any particular purpose.</h3>
+<div id="headster">
+	<h1>YanlJ, a non-linear JanlY</h1>
+
+	<h3 id="quote">Are you a general purpose computer looking for a particular purpose? Consider pursuing the general purpose, where progress towards particular purposes can be made without any particular purpose.</h3>
+</div>
 
 <?php check_login(); check_logout(); present_login() ?>
 
 <?php if (htmlspecialchars($_SESSION['LOGGED_IN'])) { ?>
 
-<?php echo "<h3 id='hello'>Hello, " .  htmlspecialchars($_SESSION['USR_NAME']) . ".  Enjoy using YanlJ</h3>" ; ?>
-
+<div id="real_page">
 <div class="left_scroll">
+	<?php echo "<h3 id='hello'>Hello, " .  htmlspecialchars($_SESSION['USR_NAME']) . ".  Enjoy using YanlJ</h3>" ; ?>
 	<div id="search" class="content_unit">
 		<form>
 		  <input id="search_box" type="text" name="db_search" onkeyup="displaySearchResults(this.value)">	
@@ -74,6 +77,7 @@
 	</div>
 
 
+</div>
 </div>
 <?php } ?>
 

@@ -16,28 +16,45 @@ h2.https
  color:white;
 }
 
-#quote
-{
- position:absolute;;
- text-align:center;
- left:450px;
- top: 50px;
+#quote{
  width: 400px;
+ margin:0 auto;
+ text-align:center;
 
  font-style: italic;
  color: #808090;
 }
 
-#hello
+#headster
 {
- margin-left:20px;
+ margin:0 auto;
+ text-align:center;
+ float:center;
 }
+
+#real_page
+{
+
+}
+
 
 .left_scroll
 {
+ margin 0 auto;
  margin-left:20px;
+ margin-top:-150px;
+ float:left;
 
 }
+
+#workflow
+{
+ margin:0 auto;
+ float:center;
+ margin-top:50px;
+ width:600px;
+}
+
 
 #search
 {
@@ -64,11 +81,9 @@ h2.https
 .loginbox
 {
  width: 450px;
- position:absolute;
- top:200px;
- left:420px;
  text-align:center;
  margin: 0 auto;
+ margin-top:30px;
 }
 
 #recent_posts
@@ -83,13 +98,6 @@ h2.https
 .post
 {
  margin:20px;
-}
-
-#workflow
-{
- position: absolute;
- top: 200px;
- left: 400px;
 }
 
 
