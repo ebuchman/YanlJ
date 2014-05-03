@@ -45,17 +45,23 @@
 		</form>
 	</div>
 
+	<div>
+		<input id="new_entry_button" type="submit" name="new_entry" value="Add New Entry" onclick="load_new_entry_form()">
+	</div>
+
 	<div id="recent_posts" class="content_unit">
-		<?php 	
-			delete_entry();
-			load_recent_posts();
-		?>
+		<?php load_recent_posts(); ?>
 	</div>
 </div>
 
 <div id="workflow">
 	<div id="new_entry" class="content_unit">
-		<?php load_new_entry_form(); ?>
+		<div class="new_entry_div">
+			<div class="entry">
+				<p id="new_entry_form_internals">
+				</p>
+			</div>
+		</div>
 	</div>
 
 	<div id="entry_div_box_proto" draggable="true">
@@ -69,10 +75,7 @@
 			</div>
 			<p>
 			<div class="edit_delete_links" style="position:static">
-			    <form class="delete_entry_form" style="display:inline-block;"  action="" method="post" >
-				<a class="delete_link"></a> 
-				<input class="delete_name_input" type="hidden" name="entry_to_delete">
-			    </form>
+			    <a class="delete_link"></a> 
 			    <a class="edit_link"></a>
 			    <a class="done_edit_link"></a>
 			</div>

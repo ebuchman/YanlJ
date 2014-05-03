@@ -47,14 +47,19 @@ h2.https
 
 }
 
+#new_entry_button{
+ margin-top:20px;
+ width:100%;
+}
+
 #workflow
 {
  margin:0 auto;
  float:center;
  margin-top:50px;
  width:600px;
+ float:center;
 }
-
 
 #search
 {
