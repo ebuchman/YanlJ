@@ -62,8 +62,10 @@
 		<div class="entry">
 			<input type="submit" name="close_entry" value="x" class="x_button" onClick="close_bubble(this.parentNode.parentNode.id)">
 			<div class="big_content_box">
-			    <div class="content_header"></div>
-			    <div class="entry_content_box"></div>
+			    <form action="" method="post">
+			        <div class="content_header"></div>
+			        <div class="entry_content_box"></div>
+			    </form>
 			</div>
 			<p>
 			<div class="edit_delete_links" style="position:static">
@@ -72,6 +74,7 @@
 				<input class="delete_name_input" type="hidden" name="entry_to_delete">
 			    </form>
 			    <a class="edit_link"></a>
+			    <a class="done_edit_link"></a>
 			</div>
 		</div>
 	</div>

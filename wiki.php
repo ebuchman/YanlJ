@@ -12,7 +12,7 @@ function load_recent_posts(){
         $con = pg_connect("host=localhost dbname=wikidb user=$usr password=$pwd");
         if ($con)
         { 
-            add_new_entry($con);
+            //add_new_entry($con);
 
             $sql = "SELECT * FROM Entries";
             $result = pg_query($con, $sql);	?>
@@ -20,7 +20,7 @@ function load_recent_posts(){
             <?php while ($row = pg_fetch_array($result)) { 
                 $this_name = htmlspecialchars($row[0]);
 		echo "<div class=\"post\">";
-                echo "<p><a href=\"#/\" onClick=\"get_entry_data('" . addslashes($this_name) . "');\" >" .  $this_name . " </a> </p>";
+                echo "<p><a href=\"#/\" id=\"" . $this_name . "_entry_link\" onclick=\"get_entry_data('" . addslashes($this_name) . "');\" >" .  $this_name . " </a> </p>";
 		echo "</div>";
              }
 
