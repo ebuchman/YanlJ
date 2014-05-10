@@ -5,9 +5,10 @@
 <head>
 <title>YanlJ, a non-linear JanlY.</title>
 <link rel="stylesheet" type="text/css" href="style.css">
-<script type='text/javascript' src=scripts.js></script>
 <script type="text/javascript" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
-<script type="text/x-mathjax-config"> //MathJax.Hub.Config({ tex2jax: {inlineMath: [['$','$'], ['\\(','\\)'], processEscapes: true}}); </script>
+<script type="text/x-mathjax-config"> //MathJax.Hub.Config({ tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']], processEscapes: true}}); </script>
+
+<script type='text/javascript' src=scripts.js></script>
 <noscript>
 	<style type="text/css">
 		.pagecontainer{display:none;}

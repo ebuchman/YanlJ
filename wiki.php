@@ -112,7 +112,7 @@ function check_logout(){
 
     if (!isset($_SESSION['PASSWORD']))
       $_SESSION['PASSWORD']=NULL;
-    }
+}
 
 function present_login(){
     // Note: $_SERVER['PHP_SELF'] comes from the url and is an attack vector.  Must be escaped.  Or, just use $_SERVER['SCRIPT_NAME']
@@ -120,13 +120,18 @@ function present_login(){
 	<div class="loginbox content_unit">
 		<h3>Welcome <?php echo htmlspecialchars($_SERVER['REMOTE_ADDR']) ?>. Please log in to use the wiki</h3>
 
-		<form action="<?php htmlspecialchars($_SERVER['SCRIPT_NAME']); ?>" method="post">
+		<form id="login_form" action="<?php htmlspecialchars($_SERVER['SCRIPT_NAME']); ?>" method="post">
 		  Username: <input type="text" name="usr">
 		  <p>
 		  Password: <input type="password" name="pwd">
 		  <p>
-		  <input type="submit" name="login" value="Login">
+          <div id="signup_form">
+          </div>
+		  <input id="login_btn" type="submit" name="login" value="Login">
 		</form> 
+        <div id="signup_btn_div">
+            <input id="signup_btn" type="button" name="signup" value="Sign Up" onclick="present_signup();" >
+        </div>
 	</div>
     <?php
     endif; 

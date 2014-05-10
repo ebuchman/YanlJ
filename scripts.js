@@ -1,11 +1,10 @@
-
 function new_bubble(name, content, owner){
     var workflow_div = document.getElementById('workflow');
     var proto = document.getElementById('entry_div_box_proto').cloneNode(true);
 
     proto.getElementsByClassName('entry_content_box')[0].innerHTML = content;
 	
-    //MathJax.Hub.Typeset(proto);
+    MathJax.Hub.Typeset(proto);
 
     if (owner){
         // edit and delete links, built dynamically
@@ -30,6 +29,7 @@ function new_bubble(name, content, owner){
 function reload_bubble(name, content, element){
     element.getElementsByClassName('entry_content_box')[0].innerHTML = content;
     element.getElementsByClassName('content_header')[0].innerHTML = "<h4>"+name+"</h4>";
+    MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 }
 
 
@@ -68,12 +68,20 @@ function edit_entry_data(name, content, element){
 	    var response = JSON.parse(xmlhttp.responseText);
 	    var content = response.no_click;
 	    
+        
 	    element.getElementsByClassName('content_header')[0].innerHTML = '<input class="edit_title" type="text" name="entry_name" value="'+name+'">' ;
 	    element.getElementsByClassName('entry_content_box')[0].innerHTML = '<textarea class="edit_entry_content" name="entry_content" rows=5 cols=50>'+content+'</textarea>';
 
+
             var done_edit_link = element.getElementsByClassName('done_edit_link')[0];
             done_edit_link.href="#/";
-            done_edit_link.onclick= function(){replace_entry_data(name, content, element);};
+            done_edit_link.onclick= function(){
+                replace_entry_data(name, content, element);
+
+                var el = element.getElementsByClassName('entry_content_box')[0];
+                console.log('sup!!!');
+                console.log(el.getElementsByClassName('edit_entry_content')[0].value);
+            };
             done_edit_link.innerHTML="done";
         }
     }
@@ -208,4 +216,55 @@ function delete_entry(name){
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send("name="+encodeURIComponent(name));
     return false;
+}
+
+
+function register_new_user(login_form){
+    var name = login_form.usr.value;
+    var pwd = login_form.pwd.value;
+    var pwd2 = login_form.pwd2.value;
+    var email = login_form.email.value;
+
+    // validate....
+
+    if (window.XMLHttpRequest)
+        xmlhttp=new XMLHttpRequest();
+    else
+        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+    xmlhttp.onreadystatechange=function(){
+    if (xmlhttp.readyState==4 && xmlhttp.status==200){
+	        var response = JSON.parse(xmlhttp.responseText);
+            var loginbtn = document.getElementById('login_btn');
+            loginbtn.value="Login";
+            loginbtn.type="submit";
+            loginbtn.onclick="";
+            document.getElementById("signup_form").innerHTML="";
+            login_form.usr.value = "";
+            login_form.pwd.value = "";
+        }
+    }
+    post_data = "name="+encodeURIComponent(name)+"&pwd="+encodeURIComponent(pwd)+"&email="+encodeURIComponent(email);
+    console.log(post_data);
+    xmlhttp.open("POST", "ajax/register_user.php", true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send(post_data);
+    return false;
+}
+
+
+
+function present_signup(){
+    var signup_form = document.getElementById("signup_form");
+    signup_form.innerHTML = 'Password (again): <input type="password" name="pwd2">'+
+              '<p>'+
+              'Email: <input type="text" name="email">'+
+              '<p>'+
+              'Important Question: What time is it in China in five minutes when it\'s one fifty eight in Toronto and day-light savings time is about to set the clock forward?'+
+              '<input type="text" name="question">';
+    var loginbtn = document.getElementById('login_btn');
+    loginbtn.value="Sign Up";
+    loginbtn.onclick=function(){console.log('fuck'); register_new_user(document.getElementById('login_form'));}; // ......
+    loginbtn.type="button";
+    document.getElementById('signup_btn_div').innerHTML = '';
+
 }
