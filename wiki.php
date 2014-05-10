@@ -5,12 +5,12 @@
 function load_recent_posts(){
     if (htmlspecialchars($_SESSION['LOGGED_IN'])){
         $usr = htmlspecialchars(pg_escape_string($_SESSION['USR_NAME']));
-        $pwd = htmlspecialchars(pg_escape_string($_SESSION['PASSWORD']));
-
+        //$pwd = htmlspecialchars(pg_escape_string($_SESSION['PASSWORD']));
+    
         $db_name = 'wikidb'; 
 
-        $con = pg_connect("host=localhost dbname=wikidb user=$usr password=$pwd");
-        if ($con)
+        //$con = pg_connect("host=localhost dbname=wikidb user=$usr password=$pwd");
+        if (($con = connect_db('auth.txt')))
         { 
             $sql = "SELECT * FROM Entries";
             $result = pg_query($con, $sql);
@@ -39,12 +39,12 @@ function add_new_entry($con){
 	    if(preg_match('/[^a-z_\-0-9]/i', $name))
 		echo "<div id='bad_name'><h3>Names may only contain alphanumeric characters and the underscore</h3></div>";
 	    else{
-		    $result = pg_prepare($con, "check_entry", 'SELECT * FROM Entries WHERE entryname = $1');
+		    $result = pg_prepare($con, "check_entry", 'SELECT * FROM Entries WHERE entry_name = $1');
 		    $result = pg_execute($con, "check_entry", array($name));
 		    if ($result){
 			// can we update entries instead of replacing them?
 			// note this prepared statement is already built in another function!
-			$result = pg_prepare($con, "del_entry", 'DELETE FROM Entries WHERE entryname=$1');
+			$result = pg_prepare($con, "del_entry", 'DELETE FROM Entries WHERE entry_name=$1');
 			$result = pg_execute($con, "del_entry", array($name));
 		    }
 		    $result = pg_prepare($con, "add_entry", 'INSERT INTO Entries VALUES ($1, $2)');
@@ -56,6 +56,17 @@ function add_new_entry($con){
 
 // authorization functions
 
+function connect_db($path){
+  $db_name = 'wikidb'; 
+  // use the @ to suppress php/psql error message
+  $lines = file($path);
+  $master_usr = $lines[0];
+  $master_pwd = $lines[1];
+
+  $con = @pg_connect("host=localhost dbname=wikidb user=$master_usr password=$master_pwd");
+  return $con;
+}
+
 function check_login(){
     if (isset($_POST['login'])){
       $usr = htmlspecialchars(pg_escape_string($_POST['usr']));
@@ -65,16 +76,8 @@ function check_login(){
       if (count($usr) > 10 or count($pwd) > 15)
 	echo "Incorrect Credentials";
       else{
-	      $db_name = 'wikidb'; 
-	      // use the @ to suppress php/psql error message
-	      $file = 'auth.txt';
-	      $lines = file($file);
-	      $master_usr = $lines[0];
-	      $master_pwd = $lines[1];
-
-	      $con = @pg_connect("host=localhost dbname=wikidb user=$master_usr password=$master_pwd");
 	     
-	      if ($con){
+	      if (($con = connect_db('auth.txt'))){
             	    $result = pg_prepare($con, "check_login", 'SELECT * FROM users WHERE name = $1');
             	    $result = pg_execute($con, "check_login", array($usr));
 
@@ -130,7 +133,7 @@ function present_login(){
 }
 
 function https(){ 
- if ($_SERVER['HTTPS'] != 'on') {
+ if (0 and $_SERVER['HTTPS'] != 'on') {
     echo "<h2 class='https'>YanlJ is only accessible over a secure connection.  Try <a href=https://".htmlspecialchars($_SERVER['HTTP_HOST']).">here</a></h2>" ;
     die();
  }

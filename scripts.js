@@ -5,7 +5,7 @@ function new_bubble(name, content){
 
     proto.getElementsByClassName('entry_content_box')[0].innerHTML = content;
 	
-    MathJax.Hub.Typeset(proto);
+    //MathJax.Hub.Typeset(proto);
 
     // edit and delete links, built dynamically
     var delete_link = proto.getElementsByClassName('delete_link')[0];
