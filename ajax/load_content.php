@@ -23,6 +23,7 @@ function load_entry_content($entry_name){
             // however, we also return the entries without html protection, so the real text can be loaded into the edit space (which isn't rendered as html :D).
             $content = htmlspecialchars($row[1]);
             $no_click = $row[1];
+            $owner= $row[2] == $usr;
             
             // find refs to other content and replace them with a link
             preg_match_all('#\[\[(.+?)\]\s\[(.+?)\]\]#', $content, $matches);
@@ -45,7 +46,7 @@ function load_entry_content($entry_name){
                     $content = preg_replace("#\[\[$n\]\s\[$clickables[$i]\]\]#", $clickable, $content);
                 }
             } 
-            echo json_encode(array("content"=>$content, "no_click"=>$no_click));	
+            echo json_encode(array("content"=>$content, "no_click"=>$no_click, "owner"=>$owner));	
             
 
             pg_close($con);

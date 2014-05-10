@@ -1,5 +1,5 @@
 
-function new_bubble(name, content){
+function new_bubble(name, content, owner){
     var workflow_div = document.getElementById('workflow');
     var proto = document.getElementById('entry_div_box_proto').cloneNode(true);
 
@@ -7,18 +7,19 @@ function new_bubble(name, content){
 	
     //MathJax.Hub.Typeset(proto);
 
-    // edit and delete links, built dynamically
-    var delete_link = proto.getElementsByClassName('delete_link')[0];
-    var edit_link = proto.getElementsByClassName('edit_link')[0];
+    if (owner){
+        // edit and delete links, built dynamically
+        var delete_link = proto.getElementsByClassName('delete_link')[0];
+        var edit_link = proto.getElementsByClassName('edit_link')[0];
 
-    delete_link.href="javascript:;"; 
-    delete_link.onclick = function(){delete_entry(name);};
-    delete_link.innerHTML="delete";
+        delete_link.href="javascript:;"; 
+        delete_link.onclick = function(){delete_entry(name);};
+        delete_link.innerHTML="delete";
 
-    edit_link.href="#/";
-    edit_link.onclick= function(){edit_entry_data(name, content, proto);};
-    edit_link.innerHTML="edit";
-
+        edit_link.href="#/";
+        edit_link.onclick= function(){edit_entry_data(name, content, proto);};
+        edit_link.innerHTML="edit";
+    }
     proto.getElementsByClassName('content_header')[0].innerHTML = "<h4>"+name+"</h4>";
     proto.setAttribute("class", "entry_div_box content_unit");
     proto.setAttribute("id", "entry_div_box_"+name);
@@ -43,10 +44,11 @@ function get_entry_data(name, inplace){
         if (xmlhttp.readyState==4 && xmlhttp.status==200){
 	    var response = JSON.parse(xmlhttp.responseText);
 	    var content = response.content;
+        var owner = response.owner;
 	    if (inplace == 0)
-	    	new_bubble(name, content);
+	    	new_bubble(name, content, owner);
 	    else 
-		reload_bubble(name, content, inplace)
+    		reload_bubble(name, content, inplace)
         }
     }
     xmlhttp.open("POST", "ajax/load_content.php", true);
