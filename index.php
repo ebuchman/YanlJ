@@ -34,7 +34,7 @@
 
 <?php check_login(); check_logout(); present_login() ?>
 
-<?php if (htmlspecialchars($_SESSION['LOGGED_IN'])) { ?>
+<?php // if (htmlspecialchars($_SESSION['LOGGED_IN'])) { ?>
 
 <div id="real_page">
 <div class="left_scroll">
@@ -86,7 +86,7 @@
 
 </div>
 </div>
-<?php } ?>
+<?php //} ?>
 
 <form id="logout_button" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>"  method="post" ><p>	
 <input type="submit" name="exit" value="Logout">
