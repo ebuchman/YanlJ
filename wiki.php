@@ -3,7 +3,7 @@
 // page content functions
 
 function load_recent_posts(){
-    if (htmlspecialchars($_SESSION['LOGGED_IN'])){
+    if (1 || htmlspecialchars($_SESSION['LOGGED_IN'])){
         $usr = htmlspecialchars(pg_escape_string($_SESSION['USR_NAME']));
         //$pwd = htmlspecialchars(pg_escape_string($_SESSION['PASSWORD']));
     

@@ -44,6 +44,7 @@ function get_entry_data(name, inplace){
         if (xmlhttp.readyState==4 && xmlhttp.status==200){
 	    var response = JSON.parse(xmlhttp.responseText);
 	    var content = response.content;
+        
         var owner = response.owner;
 	    if (inplace == 0)
 	    	new_bubble(name, content, owner);
@@ -67,8 +68,7 @@ function edit_entry_data(name, content, element){
         if (xmlhttp.readyState==4 && xmlhttp.status==200){
 	    var response = JSON.parse(xmlhttp.responseText);
 	    var content = response.no_click;
-	    
-        
+
 	    element.getElementsByClassName('content_header')[0].innerHTML = '<input class="edit_title" type="text" name="entry_name" value="'+name+'">' ;
 	    element.getElementsByClassName('entry_content_box')[0].innerHTML = '<textarea class="edit_entry_content" name="entry_content" rows=5 cols=50>'+content+'</textarea>';
 
@@ -79,7 +79,6 @@ function edit_entry_data(name, content, element){
                 replace_entry_data(name, content, element);
 
                 var el = element.getElementsByClassName('entry_content_box')[0];
-                console.log('sup!!!');
                 console.log(el.getElementsByClassName('edit_entry_content')[0].value);
             };
             done_edit_link.innerHTML="done";
@@ -171,7 +170,7 @@ function add_new_entry(){
         if (xmlhttp.readyState==4 && xmlhttp.status==200){
 	    var response = JSON.parse(xmlhttp.responseText);
 	    var content = response.content;
-
+	    console.log(content);
 	    document.getElementById('new_entry_form_internals').innerHTML='';
 
 	    var new_list_element = document.createElement("DIV");
@@ -268,3 +267,4 @@ function present_signup(){
     document.getElementById('signup_btn_div').innerHTML = '';
 
 }
+

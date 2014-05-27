@@ -6,7 +6,7 @@ function load_entry_content($entry_name){
 
     $_GLOBAL['current_entry'] = $escaped_entry_name;
 
-    if ($_SESSION['LOGGED_IN']){
+    if (1 || $_SESSION['LOGGED_IN']){
         $usr = htmlspecialchars(pg_escape_string($_SESSION['USR_NAME']));
         //$pwd = htmlspecialchars(pg_escape_string($_SESSION['PASSWORD']));
         if (($con=connect_db('../auth.txt')))

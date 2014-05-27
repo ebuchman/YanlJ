@@ -32,9 +32,9 @@
 	<h3 id="quote">Are you a general purpose computer looking for a particular purpose? Consider pursuing the general purpose, where progress towards particular purposes can be made without any particular purpose.</h3>
 </div>
 
-<?php check_login(); check_logout(); present_login() ?>
+<?php check_login(); check_logout(); if($_POST['login_entry']){present_login();} ?>
 
-<?php // if (htmlspecialchars($_SESSION['LOGGED_IN'])) { ?>
+<?php  if (!htmlspecialchars($_SESSION['LOGGED_IN'])) { $_SESSION['USR_NAME'] = 'Guest';} ?>
 
 <div id="real_page">
 <div class="left_scroll">
@@ -46,9 +46,11 @@
 		</form>
 	</div>
 
+	<?php if (htmlspecialchars($_SESSION['LOGGED_IN'])) { ?>
 	<div>
 		<input id="new_entry_button" type="submit" name="new_entry" value="Add New Entry" onclick="load_new_entry_form()">
 	</div>
+	<?php } ?>
 
 	<div id="recent_posts" class="content_unit">
 		<?php load_recent_posts(); ?>
@@ -56,6 +58,7 @@
 </div>
 
 <div id="workflow">
+	<?php if (htmlspecialchars($_SESSION['LOGGED_IN'])) { ?>
 	<div id="new_entry" class="content_unit">
 		<div class="new_entry_div">
 			<div class="entry">
@@ -64,6 +67,7 @@
 			</div>
 		</div>
 	</div>
+	<?php } ?>
 
 	<div id="entry_div_box_proto" draggable="true">
 		<div class="entry">
@@ -86,11 +90,16 @@
 
 </div>
 </div>
-<?php //} ?>
 
+<?php if (htmlspecialchars($_SESSION['LOGGED_IN'])){ ?>
 <form id="logout_button" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>"  method="post" ><p>	
 <input type="submit" name="exit" value="Logout">
 </form>
+<?php } else {?>
+<form id="logout_button" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>"  method="post" ><p>	
+	<input  type="submit" name="login_entry" value="Login">
+</form>
+<?php } ?>
 
 </div>
 </body>

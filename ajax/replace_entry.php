@@ -22,7 +22,7 @@ function add_entry($old_title, $new_title, $content){
 		                pg_free_result($result);
             	    }
 
-            	    $result = pg_prepare($con, "add_entry", 'INSERT INTO Entries VALUES ($1, $2, $3)');
+            	    $result = pg_prepare($con, "add_entry", 'INSERT INTO entries VALUES ($1, $2, $3)');
             	    $result = pg_execute($con, "add_entry", array($new_title, $content, $usr));
 		            pg_free_result($result);
 		            pg_close($con);
