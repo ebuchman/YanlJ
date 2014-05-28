@@ -232,7 +232,9 @@ function register_new_user(login_form){
         xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
     xmlhttp.onreadystatechange=function(){
     if (xmlhttp.readyState==4 && xmlhttp.status==200){
-	        var response = JSON.parse(xmlhttp.responseText);
+	    console.log('wtf');
+	    var response = JSON.parse(xmlhttp.responseText);
+	    console.log(response);
             var loginbtn = document.getElementById('login_btn');
             loginbtn.value="Login";
             loginbtn.type="submit";

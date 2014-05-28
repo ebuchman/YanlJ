@@ -87,7 +87,8 @@ function check_login(){
 			pg_close($con);
 			if ($user_data != NULL){
 				$stored_pwd = $user_data['pwdhash'];
-				if ($stored_pwd == $pwd){
+				$nonce = $user_data['salt'];
+				if ($stored_pwd == password_hash($pwd.$nonce, PASSWORD_DEFAULT)){
 				       $_SESSION['LOGGED_IN'] = 1;
 				       
 				       $_SESSION['USR_NAME'] = $usr;
@@ -138,7 +139,7 @@ function present_login(){
 }
 
 function https(){ 
- if (0 and $_SERVER['HTTPS'] != 'on') {
+ if ($_SERVER['HTTPS'] != 'on') {
     echo "<h2 class='https'>YanlJ is only accessible over a secure connection.  Try <a href=https://".htmlspecialchars($_SERVER['HTTP_HOST']).">here</a></h2>" ;
     die();
  }

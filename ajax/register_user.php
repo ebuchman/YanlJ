@@ -11,8 +11,11 @@ function new_user($name, $pwd, $email){
               	    echo "<div id='bad_name'><h3>Names may only contain alphanumeric characters and the underscore</h3></div>";
                 }
                 else{
+		    //$salt = "00";
+		    $salt = openssl_random_pseudo_bytes(64);
+		    //$pwd = password_hash($pwd.$salt, PASSWORD_DEFAULT);
             	    $result = pg_prepare($con, "register_user", 'INSERT INTO users VALUES ($1, $2, $3, $4)');
-            	    $result = pg_execute($con, "register_user", array($name, $pwd, '00000000', $email));
+            	    $result = pg_execute($con, "register_user", array($name, $pwd, $salt, $email));
 		            pg_free_result($result);
 		            pg_close($con);
 		            echo json_encode(array("name"=>$name, "email"=>$email));
