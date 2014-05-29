@@ -232,16 +232,16 @@ function register_new_user(login_form){
         xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
     xmlhttp.onreadystatechange=function(){
     if (xmlhttp.readyState==4 && xmlhttp.status==200){
-	    console.log('wtf');
 	    var response = JSON.parse(xmlhttp.responseText);
 	    console.log(response);
-            var loginbtn = document.getElementById('login_btn');
-            loginbtn.value="Login";
-            loginbtn.type="submit";
-            loginbtn.onclick="";
+            //var loginbtn = document.getElementById('login_btn');
+            //loginbtn.value="Login";
+            //loginbtn.type="submit";
+            //loginbtn.onclick="";
             document.getElementById("signup_form").innerHTML="";
             login_form.usr.value = "";
             login_form.pwd.value = "";
+	    console.log("da fuq?!");
         }
     }
     post_data = "name="+encodeURIComponent(name)+"&pwd="+encodeURIComponent(pwd)+"&email="+encodeURIComponent(email);
@@ -264,7 +264,7 @@ function present_signup(){
               '<input type="text" name="question">';
     var loginbtn = document.getElementById('login_btn');
     loginbtn.value="Sign Up";
-    loginbtn.onclick=function(){console.log('fuck'); register_new_user(document.getElementById('login_form'));}; // ......
+    loginbtn.onclick=function(){register_new_user(document.getElementById('login_form'));}; // ......
     loginbtn.type="button";
     document.getElementById('signup_btn_div').innerHTML = '';
 

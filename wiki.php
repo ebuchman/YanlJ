@@ -74,9 +74,8 @@ function check_login(){
 
       // some shitty validation
       if (count($usr) > 10 or count($pwd) > 15)
-	echo "Incorrect Credentials";
+	echo "Incorrect Credentials: validation";
       else{
-	     
 	      if (($con = connect_db('auth.txt'))){
             	    $result = pg_prepare($con, "check_login", 'SELECT * FROM users WHERE name = $1');
             	    $result = pg_execute($con, "check_login", array($usr));
@@ -88,9 +87,8 @@ function check_login(){
 			if ($user_data != NULL){
 				$stored_pwd = $user_data['pwdhash'];
 				$nonce = $user_data['salt'];
-				if ($stored_pwd == password_hash($pwd.$nonce, PASSWORD_DEFAULT)){
+				if (password_verify($pwd.$nonce, $stored_pwd)){
 				       $_SESSION['LOGGED_IN'] = 1;
-				       
 				       $_SESSION['USR_NAME'] = $usr;
 				}
 				else echo "Incorrect Credentials.";
