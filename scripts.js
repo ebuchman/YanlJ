@@ -234,18 +234,16 @@ function register_new_user(login_form){
     if (xmlhttp.readyState==4 && xmlhttp.status==200){
 	    var response = JSON.parse(xmlhttp.responseText);
 	    console.log(response);
-            //var loginbtn = document.getElementById('login_btn');
-            //loginbtn.value="Login";
-            //loginbtn.type="submit";
-            //loginbtn.onclick="";
+            var loginbtn = document.getElementById('login_btn');
+            loginbtn.setAttribute("value", "Login");
+            loginbtn.setAttribute("type", "submit");
+            loginbtn.onclick="";
             document.getElementById("signup_form").innerHTML="";
             login_form.usr.value = "";
             login_form.pwd.value = "";
-	    console.log("da fuq?!");
         }
     }
     post_data = "name="+encodeURIComponent(name)+"&pwd="+encodeURIComponent(pwd)+"&email="+encodeURIComponent(email);
-    console.log(post_data);
     xmlhttp.open("POST", "ajax/register_user.php", true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send(post_data);
