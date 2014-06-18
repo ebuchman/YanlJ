@@ -4,6 +4,7 @@ CREATE TABLE users (
         name    varchar(64),
         pwdhash varchar(64),
         salt    varchar(64),
+	email	varchar(64),
         created date,
         lastlogged date
 );

@@ -14,9 +14,9 @@ function new_user($name, $pwd, $email){
 		    $pwd = password_hash($salted, PASSWORD_DEFAULT);
             	    $result = pg_prepare($con, "register_user", 'INSERT INTO users VALUES ($1, $2, $3, $4, $5, $6)');
             	    $result = pg_execute($con, "register_user", array($name, $pwd, $salt, $email, null, null));
+		    echo json_encode(array("name"=>$name, "email"=>$email, "salted"=>$salted));
 		    pg_free_result($result);
 		    pg_close($con);
-		    echo json_encode(array("name"=>$name, "email"=>$email, "salted"=>$salVted));
                 }
             }	
             else{
