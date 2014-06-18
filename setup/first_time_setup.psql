@@ -1,0 +1,18 @@
+\set bobs_name 'bob';
+CREATE USER :usr_name WITH PASSWORD :password;
+CREATE TABLE users (
+        name    varchar(64),
+        pwdhash varchar(64),
+        salt    varchar(64),
+        created date,
+        lastlogged date
+);
+ 
+CREATE TABLE entries (
+        entry_name      varchar(128),
+        entry_content   varchar(4096),
+        author          varchar(64)
+);
+GRANT ALL PRIVILEGES ON DATABASE wikidb to :usr_name;
+GRANT ALL PRIVILEGES ON TABLE Entries TO :usr_name;
+GRANT ALL PRIVILEGES ON TABLE Users TO :usr_name;
