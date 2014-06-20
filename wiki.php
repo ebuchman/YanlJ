@@ -1,5 +1,18 @@
 <?php
 
+// can't make this work yet. the ajax files seem to need to call pg_prepare
+if (!$_SESSION['PREPARED']){
+if (($con=connect_db('auth.txt'))){
+// prepared database statements (global variables for now, but learn classes!)
+$result = pg_prepare($con, "check_entry", 'SELECT * FROM Entries WHERE entry_name = $1');
+$result = pg_prepare($con, "del_entry", 'DELETE FROM Entries WHERE entry_name=$1');
+$result = pg_prepare($con, "get_content", 'SELECT * FROM Entries WHERE entry_name = $1');
+$result = pg_prepare($con, "check_content", 'SELECT count(1) FROM Entries WHERE entry_name = $1');
+$result = pg_prepare($con, "register_user", 'INSERT INTO users VALUES ($1, $2, $3, $4, $5, $6)');
+$result = pg_prepare($con, "add_entry", 'INSERT INTO entries VALUES ($1, $2, $3)');
+$result = pg_prepare($con, "search", 'SELECT entry_name FROM Entries WHERE entry_name LIKE ($1)');
+$_SESSION['PREPARED'] = 1;
+}}
 // page content functions
 
 function load_recent_posts(){
@@ -23,34 +36,6 @@ function load_recent_posts(){
             pg_free_result($result);
             pg_close($con);
         }
-    }
-}
-
-// database functions
-
-function add_new_entry($con){
-    if (isset($_POST['new_entry'])){
-        if ($con)
-        { 
-            $name = $_POST['entry_name'];
-            $content = $_POST['entry_content'];
-
-	    // we should do some validating here!  note html cleaning happens on the way out.  otherwise, we couldnt do math...
-	    if(preg_match('/[^a-z_\-0-9]/i', $name))
-		echo "<div id='bad_name'><h3>Names may only contain alphanumeric characters and the underscore</h3></div>";
-	    else{
-		    $result = pg_prepare($con, "check_entry", 'SELECT * FROM Entries WHERE entry_name = $1');
-		    $result = pg_execute($con, "check_entry", array($name));
-		    if ($result){
-			// can we update entries instead of replacing them?
-			// note this prepared statement is already built in another function!
-			$result = pg_prepare($con, "del_entry", 'DELETE FROM Entries WHERE entry_name=$1');
-			$result = pg_execute($con, "del_entry", array($name));
-		    }
-		    $result = pg_prepare($con, "add_entry", 'INSERT INTO Entries VALUES ($1, $2)');
-		    $result = pg_execute($con, "add_entry", array($name, $content));
-	    }
-        }	
     }
 }
 

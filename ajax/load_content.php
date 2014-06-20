@@ -11,6 +11,7 @@ function load_entry_content($entry_name){
         //$pwd = htmlspecialchars(pg_escape_string($_SESSION['PASSWORD']));
         if (($con=connect_db('../auth.txt')))
         { 
+	    //load_prepared_statements($con);
             $result = pg_prepare($con, "get_content", 'SELECT * FROM Entries WHERE entry_name = $1');
             $result = pg_execute($con, "get_content", array($escaped_entry_name));
 

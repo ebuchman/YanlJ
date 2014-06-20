@@ -7,6 +7,7 @@ function delete_entry($name){
 
             if (($con=connect_db('../auth.txt')))
             { 
+	    	    //load_prepared_statements($con);
             	    $result = pg_prepare($con, "check_entry", 'SELECT * FROM Entries WHERE entry_name = $1');
             	    $result = pg_execute($con, "check_entry", array($name));
 
