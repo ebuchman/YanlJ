@@ -74,7 +74,7 @@ function _delete_entry(xmlhttp, name){
 	delete element;
 }
 
-function _register_new_user(xmlhttp, login_form){
+function _register_new_user(xmlhttp){
 	var response = JSON.parse(xmlhttp.responseText);
 	console.log(response);
 	var loginbtn = document.getElementById('login_btn');
@@ -82,6 +82,7 @@ function _register_new_user(xmlhttp, login_form){
 	loginbtn.setAttribute("type", "submit");
 	loginbtn.onclick="";
 	document.getElementById("signup_form").innerHTML="";
+	var login_form = document.getElementById('login_form');
 	login_form.usr.value = "";
 	login_form.pwd.value = "";
 }

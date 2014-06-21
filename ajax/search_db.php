@@ -10,7 +10,7 @@ function search_db($keystrokes){
 
         if (($con=connect_db('../auth.txt')))
         { 
-            //$result = pg_prepare($con, "search", 'SELECT entry_name FROM Entries WHERE entry_name LIKE ($1)');
+            $result = pg_prepare($con, "search", 'SELECT entry_name FROM Entries WHERE entry_name LIKE ($1)');
             $result = pg_execute($con, "search", array($escaped_keystrokes."%"));
                    
             echo "<ul class=\"search_list\">";

@@ -37,14 +37,14 @@ function get_entry_data(name, inplace){
     inplace = typeof inplace !== 'undefined' ? inplace : 0
 
     xmlhttp = new_request_obj();
-    request_callback(xmlhttp, _get_entry_data, array(name, inplace));
+    request_callback(xmlhttp, _get_entry_data, [name, inplace]);
     make_request(xmlhttp, "POST", "ajax/load_content.php", true, {"name":name});
     return false;
 }
 
 function edit_entry_data(name, content, element){
     xmlhttp = new_request_obj();
-    request_callback(xmlhttp, _edit_entry_data, array(name, content, element));
+    request_callback(xmlhttp, _edit_entry_data, [name, content, element]);
     make_request(xmlhttp, "POST", "ajax/load_content.php", true, {"name":name});
     return false;
 }
@@ -55,7 +55,7 @@ function replace_entry_data(name, content, element){
     var new_content = element.getElementsByClassName('edit_entry_content')[0].value;
 
     xmlhttp = new_request_obj();
-    request_callback(xmlhttp, _replace_entry_data, array(name, content, element, new_title, new_content));
+    request_callback(xmlhttp, _replace_entry_data, [name, content, element, new_title, new_content]);
     make_request(xmlhttp, "POST", "ajax/replace_entry.php", true, {"old_title":name, "new_title":new_title, "content":new_content});
     return false;
 }
@@ -81,14 +81,14 @@ function add_new_entry(){
     var content = document.getElementById('new_entry_content_box').value;
 
     xmlhttp = new_request_obj();
-    request_callback(xmlhttp, _add_new_entry, array(name, content));
+    request_callback(xmlhttp, _add_new_entry, [name, content]);
     make_request(xmlhttp, "POST", "ajax/replace_entry.php", true, {"old_title":'', "new_title":name, "content":content});
     return false;
 }
 
 function delete_entry(name){
     xmlhttp = new_request_obj();
-    request_callback(xmlhttp, _delete_entry, array(name));
+    request_callback(xmlhttp, _delete_entry, [name]);
     make_request(xmlhttp, "POST", "ajax/delete_entry.php", true, {"name":name});
     return false;
 }
@@ -102,7 +102,7 @@ function register_new_user(login_form){
     // validate....
 
     xmlhttp = new_request_obj();
-    request_callback(xmlhttp, _register_new_user, array(login_form));
-    make_request(xmlhttp, "POST", "ajax/register_user.php", true, {"name":name, "pwd"=pwd, "email"=email});
+    request_callback(xmlhttp, _register_new_user, []);
+    make_request(xmlhttp, "POST", "ajax/register_user.php", true, {"name":name, "pwd":pwd, "email":email});
     return false;
 }

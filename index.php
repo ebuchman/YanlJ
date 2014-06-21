@@ -4,14 +4,17 @@
 <html>
 <head>
 <title>YanlJ, a non-linear JanlY.</title>
-<link rel="stylesheet" type="text/css" href="style.css">
-<script type="text/javascript" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
-<script type="text/x-mathjax-config"> //MathJax.Hub.Config({ tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']], processEscapes: true}}); </script>
 
-<?php $handle = opendir("js/");
+<link rel="stylesheet" type="text/css" href="style.css">
+
+<script type="text/javascript" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+<script type="text/x-mathjax-config"> MathJax.Hub.Config({ tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']], processEscapes: true, ignoreClass: "tex2jax_ignore"}}); </script>
+
+<?php $handle = opendir("js/"); // use php to load javascripts
 while (($file = readdir($handle)) !== false) {
   echo "<script type='text/javascript' src='js/$file'></script>";
 } closedir($handle);?>
+
 <noscript>
 	<style type="text/css">
 		.pagecontainer{display:none;}
@@ -39,7 +42,7 @@ while (($file = readdir($handle)) !== false) {
 
 <?php  if (!htmlspecialchars($_SESSION['LOGGED_IN'])) { $_SESSION['USR_NAME'] = 'Guest';} ?>
 
-<div id="real_page">
+<!--div id="real_page"-->
 <div class="left_scroll">
 	<?php echo "<h3 id='hello'>Hello, " .  htmlspecialchars($_SESSION['USR_NAME']) . ".  Enjoy using YanlJ</h3>" ; ?>
 	<div id="search" class="content_unit">
@@ -49,20 +52,26 @@ while (($file = readdir($handle)) !== false) {
 		</form>
 	</div>
 
-	<?php if (htmlspecialchars($_SESSION['LOGGED_IN'])) { ?>
-	<div>
-		<input id="new_entry_button" type="submit" name="new_entry" value="Add New Entry" onclick="load_new_entry_form()">
-	</div>
-	<?php } ?>
-
 	<div id="recent_posts" class="content_unit">
 		<?php load_recent_posts(); ?>
 	</div>
 </div>
 
+<div class="right_scroll">
+<h3>YanlJ is a bubbly wiki platform where you can offload and interconnect your thoughts</h3>
+<p> You can link to other entries using [[other_entry_name] [this]] </p>
+<p class="tex2jax_ignore"> And you can write latex in line using \( 3^4 \) and out of line using \[ 3^4 \]</p>
+
+</div>
+
+
 <div id="workflow">
 	<?php if (htmlspecialchars($_SESSION['LOGGED_IN'])) { ?>
 	<div id="new_entry" class="content_unit">
+		<div>
+			<input id="new_entry_button" type="submit" name="new_entry" value="Add New Entry" onclick="load_new_entry_form()">
+		</div>
+
 		<div class="new_entry_div">
 			<div class="entry">
 				<p id="new_entry_form_internals">
@@ -91,7 +100,7 @@ while (($file = readdir($handle)) !== false) {
 	</div>
 
 
-</div>
+</div> 
 </div>
 
 <?php if (htmlspecialchars($_SESSION['LOGGED_IN'])){ ?>
