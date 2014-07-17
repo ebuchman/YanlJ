@@ -1,7 +1,7 @@
 <?php session_start(); include_once('../wiki.php');
 
-// convert database entry to bubble (ie display links)
-function db2bubble($content, $no_click, $owner, $con){
+
+function insert_links($content){
     preg_match_all('#\[\[(.+?)\]\s\[(.+?)\]\]#', $content, $matches);
 
     $names = $matches[1];
@@ -24,6 +24,12 @@ function db2bubble($content, $no_click, $owner, $con){
 	    $content = preg_replace("#\[\[$n\]\s\[$clickables[$i]\]\]#", $unclickable, $content);
 	}
     } 
+}
+
+// convert database entry to bubble (ie display links, replace new lines)
+function db2bubble($content, $no_click, $owner, $con){
+    insert_links($content);
+    $content = str_replace("\n", "<br/>", $content);
     echo json_encode(array("content"=>$content, "no_click"=>$no_click, "owner"=>$owner));	
 }
 

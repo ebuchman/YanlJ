@@ -48,7 +48,7 @@ function _replace_entry_data(xmlhttp, name, content, element, new_title, new_con
 function _add_new_entry(xmlhttp, name, content){
 	var response = JSON.parse(xmlhttp.responseText);
 	var content = response.content;
-	console.log(content);
+	log.console(content);
 	document.getElementById('new_entry_form_internals').innerHTML='';
 
 	var new_list_element = document.createElement("DIV");
