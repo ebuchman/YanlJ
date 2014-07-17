@@ -5,7 +5,7 @@
 <head>
 <title>YanlJ, a non-linear JanlY.</title>
 
-<link rel="stylesheet" type="text/css" href="style.css">
+<link rel="stylesheet" type="text/css" href="style/style.css">
 
 <script type="text/javascript" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
 <script type="text/x-mathjax-config"> MathJax.Hub.Config({ tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']], processEscapes: true, ignoreClass: "tex2jax_ignore"}}); </script>
@@ -31,6 +31,7 @@ while (($file = readdir($handle)) !== false) {
 
 <?php include("wiki.php"); ?>
 <?php https(); ?>
+
 
 <div id="headster">
 	<h1>YanlJ, a non-linear JanlY</h1>
@@ -103,15 +104,20 @@ while (($file = readdir($handle)) !== false) {
 </div> 
 </div>
 
+<div id="logout_button">
 <?php if (htmlspecialchars($_SESSION['LOGGED_IN'])){ ?>
-<form id="logout_button" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>"  method="post" ><p>	
-<input type="submit" name="exit" value="Logout">
-</form>
+  <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>"  method="post" ><p>	
+    <input type="submit" name="exit" value="Logout">
+  </form>
 <?php } else {?>
-<form id="logout_button" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>"  method="post" ><p>	
-	<input  type="submit" name="login_entry" value="Login">
-</form>
+  <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>"  method="post" ><p>	
+    <input type="submit" name="login_entry" value="Login">
+  </form>
 <?php } ?>
+</div>
+<div id="logos">
+  <a href="https://github.com/ebuchman/Yanlj"><img src="style/github.jpg" alt="We're on github" width="40" height="40"></a>
+</div>
 
 </div>
 </body>

@@ -1,0 +1,147 @@
+
+body
+{
+ background-color:#d0e4fe;
+ overflow-y:scroll;
+}
+
+h1
+{
+ text-align:center;
+}
+
+h2.https
+{
+ text-align:center;
+ color:white;
+}
+
+#quote{
+ /*width: 400px;*/
+ font-style: italic;
+ color: #808090;
+ text-align:center;
+ /*margin:0 auto;*/
+}
+
+#logos
+{
+ position:absolute; 
+ top:20px;
+ right:200px;
+}
+
+#headster
+{
+ width:12cm;
+ margin:0 auto;
+}
+
+#real_page
+{
+
+}
+
+.right_scroll
+{
+ float:right;
+ width:6cm;
+}
+
+.left_scroll
+{
+ margin-left:20px;
+ /*margin-top:-150px;*/
+ float:left;
+
+}
+
+#new_entry_button{
+ margin-top:20px;
+ width:100%;
+}
+
+#workflow
+{
+ margin:0 auto;
+ margin-top:50px;
+ width:600px;
+}
+
+#search
+{
+ width:250px;
+ resize:both;
+ overflow:auto;
+}
+
+#search_box
+{
+ margin:5px;
+ width:200px;
+}
+
+.content_unit
+{
+ border-style:solid;
+ border-width:5px;
+ border-color:#808090 ;
+ border-radius: 10px; 
+ box-shadow: 0px 1px 2px #555;
+}
+
+.loginbox
+{
+ float:right;
+ width: 450px;
+ text-align:center;
+ margin: 0 auto;
+ margin-top:30px;
+ margin-right:30%;
+}
+
+#recent_posts
+{
+ margin-top:20px;
+ width: 250px;
+
+ resize:both;
+ overflow:auto;
+}
+
+.post
+{
+ margin:20px;
+}
+
+
+.entry{
+ margin: 20px;
+}
+
+
+#entry_div_box_proto
+{
+ display:none;
+}
+
+.entry_div_box
+{
+ margin-top:20px;
+ position:relative;
+ resize:both;
+ overflow:auto;
+}
+
+#logout_button
+{
+ position:fixed; 
+ top:20px;
+ right:100px;
+}
+
+.x_button
+{
+ float:right;
+}
+
