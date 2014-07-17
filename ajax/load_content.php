@@ -1,5 +1,32 @@
 <?php session_start(); include_once('../wiki.php');
 
+// convert database entry to bubble (ie display links)
+function db2bubble($content, $no_click, $owner, $con){
+    preg_match_all('#\[\[(.+?)\]\s\[(.+?)\]\]#', $content, $matches);
+
+    $names = $matches[1];
+    $clickables = $matches[2];
+
+    foreach ($names as $i => $n){
+	//check if name in database
+	$result = pg_prepare($con, "check_content", 'SELECT count(1) FROM Entries WHERE entry_name = $1');
+	$result = pg_execute($con, "check_content", array($n));
+	$exists = pg_fetch_array($result)[0];
+	
+	pg_free_result($result);
+
+	//replace position in content with clickable
+	if ($exists == 1){
+	    $clickable = "<a href=\"#/\" onClick=\"get_entry_data('" . addslashes($n) . "');\" >" .  $clickables[$i] . " </a>";
+	    $content = preg_replace("#\[\[$n\]\s\[$clickables[$i]\]\]#", $clickable, $content);
+	} else {
+	    $unclickable = $clickables[$i];
+	    $content = preg_replace("#\[\[$n\]\s\[$clickables[$i]\]\]#", $unclickable, $content);
+	}
+    } 
+    echo json_encode(array("content"=>$content, "no_click"=>$no_click, "owner"=>$owner));	
+}
+
 function load_entry_content($entry_name){
   //  $escaped_entry_name = htmlspecialchars(pg_escape_string($entry_name));
     $escaped_entry_name = $entry_name;
@@ -27,32 +54,11 @@ function load_entry_content($entry_name){
             $owner= $row[2] == $usr;
             
             // find refs to other content and replace them with a link
-            preg_match_all('#\[\[(.+?)\]\s\[(.+?)\]\]#', $content, $matches);
-
-            $names = $matches[1];
-            $clickables = $matches[2];
-
-
-            foreach ($names as $i => $n){
-                //check if name in database
-                $result = pg_prepare($con, "check_content", 'SELECT count(1) FROM Entries WHERE entry_name = $1');
-                $result = pg_execute($con, "check_content", array($n));
-                $exists = pg_fetch_array($result)[0];
-                
-                pg_free_result($result);
-
-                //replace position in content with clickable
-                if ($exists == 1){
-                            $clickable = "<a href=\"#/\" onClick=\"get_entry_data('" . addslashes($n) . "');\" >" .  $clickables[$i] . " </a>";
-                    $content = preg_replace("#\[\[$n\]\s\[$clickables[$i]\]\]#", $clickable, $content);
-                }
-            } 
-            echo json_encode(array("content"=>$content, "no_click"=>$no_click, "owner"=>$owner));	
-            
-
+	    db2bubble($content, $no_click, $owner, $con);
             pg_close($con);
         }
     }
 }
 load_entry_content($_POST['name']);
+
 ?>
