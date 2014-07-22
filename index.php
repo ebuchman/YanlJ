@@ -1,7 +1,12 @@
 <?php
 
+include_once('wiki.php');
+
 $path = 'ajax/';
 if (isset($_POST['form'])){
+    // if logged in...
+    session_start(); 
+    $con=connect_db();
 	switch ($_POST['form']){
 	  case 'load_content':
 	    include $path."load_content.php";
@@ -25,6 +30,7 @@ if (isset($_POST['form'])){
 	    include 'index.inc';
 	    break;
 	}
+    pg_close($con);
 }
 else {
 	include 'index.inc';
