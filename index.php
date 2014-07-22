@@ -10,10 +10,12 @@
 <script type="text/javascript" src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
 <script type="text/x-mathjax-config"> MathJax.Hub.Config({ tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']], processEscapes: true, ignoreClass: "tex2jax_ignore"}}); </script>
 
-<?php $handle = opendir("js/"); // use php to load javascripts
+<?php // use php to load javascripts
+$handle = opendir("js/"); 
 while (($file = readdir($handle)) !== false) {
   echo "<script type='text/javascript' src='js/$file?271'></script>";
-} closedir($handle);?>
+} closedir($handle);
+?>
 
 <noscript>
 	<style type="text/css">
@@ -29,9 +31,11 @@ while (($file = readdir($handle)) !== false) {
 <body>
 <div class="pagecontainer">
 
-<?php include("wiki.php"); ?>
-<?php https(); ?>
 
+<?php  // include php functions, check https
+    include("wiki.php");
+    https(); 
+?>
 
 <div id="headster">
 	<h1>YanlJ, a non-linear JanlY</h1>
@@ -44,10 +48,13 @@ while (($file = readdir($handle)) !== false) {
 <?php  if (!htmlspecialchars($_SESSION['LOGGED_IN'])) { $_SESSION['USR_NAME'] = 'Guest';} ?>
 
 <!--div id="real_page"-->
+<?php // left_scroll has a greeting, a search box, and the list of recent posts ?>
 <div class="left_scroll">
+
 	<?php echo "<h3 id='hello'>Hello, " .  htmlspecialchars($_SESSION['USR_NAME']) . ".  Enjoy using YanlJ</h3>" ; ?>
+
 	<div id="search" class="content_unit">
-		<form>
+        <form>
 		  <input id="search_box" type="text" name="db_search" onkeyup="displaySearchResults(this.value)">	
 		  <div id="search_results"></div>
 		</form>
@@ -58,16 +65,18 @@ while (($file = readdir($handle)) !== false) {
 	</div>
 </div>
 
+<?php // right scroll has some basic instructions ?>
 <div class="right_scroll">
-<h3>YanlJ is a bubbly wiki platform where you can offload and interconnect your thoughts</h3>
-<p> You can link to other entries using [[other_entry_name] [this]] </p>
-<p class="tex2jax_ignore"> And you can write latex in line using \( 3^4 \) and out of line using \[ 3^4 \]</p>
-
+    <h3>YanlJ is a bubbly wiki platform where you can offload and interconnect your thoughts</h3>
+    <p> You can link to other entries using [[other_entry_name] [this]] </p>
+    <p class="tex2jax_ignore"> And you can write latex in line using \( 3^4 \) and out of line using \[ 3^4 \]</p>
 </div>
 
-
+<?php //workflow has "add_new_entry" and the scroll of content bubbles that are opened ?>
 <div id="workflow">
-	<?php if (htmlspecialchars($_SESSION['LOGGED_IN'])) { ?>
+    <?php //if logged in, present new_entry button
+        if (htmlspecialchars($_SESSION['LOGGED_IN'])) { 
+    ?>
 	<div id="new_entry" class="content_unit">
 		<div>
 			<input id="new_entry_button" type="submit" name="new_entry" value="Add New Entry" onclick="load_new_entry_form()">
@@ -80,8 +89,9 @@ while (($file = readdir($handle)) !== false) {
 			</div>
 		</div>
 	</div>
-	<?php } ?>
-
+    <?php } 
+        // create a content_bubble prototype to be copied every time a new bubble is loaded 
+    ?>
 	<div id="entry_div_box_proto" draggable="true">
 		<div class="entry">
 			<input type="submit" name="close_entry" value="x" class="x_button" onClick="close_bubble(this.parentNode.parentNode.id)">
@@ -100,9 +110,9 @@ while (($file = readdir($handle)) !== false) {
 		</div>
 	</div>
 
-
 </div> 
-</div>
+
+</div><!-- closes the page container -->
 
 <div id="logout_button">
 <?php if (htmlspecialchars($_SESSION['LOGGED_IN'])){ ?>

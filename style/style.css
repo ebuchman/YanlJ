@@ -58,7 +58,7 @@ h2.https
 
 #new_entry_button{
  margin-top:20px;
- width:100%;
+ width:90%;
 }
 
 #workflow
@@ -128,8 +128,8 @@ h2.https
 .entry_div_box
 {
  margin-top:20px;
- /*position:relative;*/
- /*resize:both;*/
+ position:relative;
+ resize:both;
  overflow:auto;
 }
 

@@ -14,7 +14,22 @@ function _edit_entry_data(xmlhttp, name, content, element){
 	var response = JSON.parse(xmlhttp.responseText);
 	var content = response.no_click;
 
+	var new_title_element = document.createElement("input");
+	new_title_element.setAttribute('class', 'edit_title');
+	new_title_element.setAttribute('type', 'text');
+	new_title_element.setAttribute('name', 'entry_name');
+	new_title_element.setAttribute('value', "'"+name+"'");
+	//element.getElementsByClassName('content_header')[0].appendChild(new_title_element);
 	element.getElementsByClassName('content_header')[0].innerHTML = '<input class="edit_title" type="text" name="entry_name" value="'+name+'">' ;
+
+	var new_content_element = document.createElement("textarea");
+	new_content_element.setAttribute('class', 'edit_entry_content');
+	new_content_element.setAttribute('name', 'entry_content');
+	new_content_element.setAttribute('rows', 5);
+	new_content_element.setAttribute('cols', 50);
+	new_content_element.innerHTML = content;
+
+	//element.getElementsByClassName('entry_content_box')[0].appendChild(new_content_element);
 	element.getElementsByClassName('entry_content_box')[0].innerHTML = '<textarea class="edit_entry_content" name="entry_content" rows=5 cols=50>'+content+'</textarea>';
 
 	var done_edit_link = element.getElementsByClassName('done_edit_link')[0];
