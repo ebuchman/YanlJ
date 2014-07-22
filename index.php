@@ -12,7 +12,7 @@
 
 <?php $handle = opendir("js/"); // use php to load javascripts
 while (($file = readdir($handle)) !== false) {
-  echo "<script type='text/javascript' src='js/$file'></script>";
+  echo "<script type='text/javascript' src='js/$file?271'></script>";
 } closedir($handle);?>
 
 <noscript>

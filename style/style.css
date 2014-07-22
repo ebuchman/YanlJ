@@ -128,8 +128,8 @@ h2.https
 .entry_div_box
 {
  margin-top:20px;
- position:relative;
- resize:both;
+ /*position:relative;*/
+ /*resize:both;*/
  overflow:auto;
 }
 
