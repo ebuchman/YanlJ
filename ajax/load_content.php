@@ -1,4 +1,4 @@
-<?php session_start(); include_once('../wiki.php');
+<?php session_start(); include_once('wiki.php');
 
 
 function insert_links($content, $con){

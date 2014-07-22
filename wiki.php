@@ -2,7 +2,7 @@
 
 // can't make this work yet. the ajax files seem to need to call pg_prepare
 if (!$_SESSION['PREPARED']){
-if (($con=connect_db('auth.txt'))){
+if (($con=connect_db())){
 // prepared database statements (global variables for now, but learn classes!)
 $result = pg_prepare($con, "check_entry", 'SELECT * FROM Entries WHERE entry_name = $1');
 $result = pg_prepare($con, "del_entry", 'DELETE FROM Entries WHERE entry_name=$1');
@@ -23,7 +23,7 @@ function load_recent_posts(){
         $db_name = 'wikidb'; 
 
         //$con = pg_connect("host=localhost dbname=wikidb user=$usr password=$pwd");
-        if (($con = connect_db('auth.txt')))
+        if (($con = connect_db()))
         { 
             $sql = "SELECT * FROM Entries";
             $result = pg_query($con, $sql);
@@ -41,7 +41,8 @@ function load_recent_posts(){
 
 // authorization functions
 
-function connect_db($path){
+function connect_db(){
+  $path = 'auth.txt';
   $db_name = 'wikidb'; 
   // use the @ to suppress php/psql error message
   $lines = file($path);
@@ -61,7 +62,7 @@ function check_login(){
       if (count($usr) > 10 or count($pwd) > 15)
 	echo "Incorrect Credentials: validation";
       else{
-	      if (($con = connect_db('auth.txt'))){
+	      if (($con = connect_db())){
             	    $result = pg_prepare($con, "check_login", 'SELECT * FROM users WHERE name = $1');
             	    $result = pg_execute($con, "check_login", array($usr));
 

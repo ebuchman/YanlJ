@@ -57,7 +57,7 @@ h2.https
 }
 
 #new_entry_button{
- margin-top:20px;
+ /*margin-top:20px;*/
  width:100%;
 }
 
@@ -128,8 +128,8 @@ h2.https
 .entry_div_box
 {
  margin-top:20px;
- /*position:relative;*/
- /*resize:both;*/
+ position:relative;
+ resize:both;
  overflow:auto;
 }
 

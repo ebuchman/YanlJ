@@ -38,14 +38,14 @@ function get_entry_data(name, inplace){
 
     xmlhttp = new_request_obj();
     request_callback(xmlhttp, _get_entry_data, [name, inplace]);
-    make_request(xmlhttp, "POST", "ajax/load_content.php", true, {"name":name});
+    make_request(xmlhttp, "POST", "index.php", true, {"form":"load_content", "name":name});
     return false;
 }
 
 function edit_entry_data(name, content, element){
     xmlhttp = new_request_obj();
     request_callback(xmlhttp, _edit_entry_data, [name, content, element]);
-    make_request(xmlhttp, "POST", "ajax/load_content.php", true, {"name":name});
+    make_request(xmlhttp, "POST", "index.php", true, {"form":"load_content", "name":name});
     return false;
 }
 
@@ -56,7 +56,7 @@ function replace_entry_data(name, content, element){
 
     xmlhttp = new_request_obj();
     request_callback(xmlhttp, _replace_entry_data, [name, content, element, new_title, new_content]);
-    make_request(xmlhttp, "POST", "ajax/replace_entry.php", true, {"old_title":name, "new_title":new_title, "content":new_content});
+    make_request(xmlhttp, "POST", "index.php", true, {"form":"replace_entry", "old_title":name, "new_title":new_title, "content":new_content});
     return false;
 }
 
@@ -72,7 +72,7 @@ function displaySearchResults(keystrokes){
 	    document.getElementById('search_results').innerHTML = xmlhttp.responseText;
         }
     }
-    make_request(xmlhttp, "POST", "ajax/search_db.php", true, {"keystrokes":keystrokes});
+    make_request(xmlhttp, "POST", "index.php", true, {"form":"search_db", "keystrokes":keystrokes});
     return false;
 }
 
@@ -82,14 +82,14 @@ function add_new_entry(){
 
     xmlhttp = new_request_obj();
     request_callback(xmlhttp, _add_new_entry, [name, content]);
-    make_request(xmlhttp, "POST", "ajax/replace_entry.php", true, {"old_title":'', "new_title":name, "content":content});
+    make_request(xmlhttp, "POST", "index.php", true, {"form":"replace_entry", "old_title":'', "new_title":name, "content":content});
     return false;
 }
 
 function delete_entry(name){
     xmlhttp = new_request_obj();
     request_callback(xmlhttp, _delete_entry, [name]);
-    make_request(xmlhttp, "POST", "ajax/delete_entry.php", true, {"name":name});
+    make_request(xmlhttp, "POST", "index.php", true, {"form":"delete_entry", "name":name});
     return false;
 }
 
@@ -103,6 +103,6 @@ function register_new_user(login_form){
 
     xmlhttp = new_request_obj();
     request_callback(xmlhttp, _register_new_user, []);
-    make_request(xmlhttp, "POST", "ajax/register_user.php", true, {"name":name, "pwd":pwd, "email":email});
+    make_request(xmlhttp, "POST", "index.php", true, {"form":"register_user", "name":name, "pwd":pwd, "email":email});
     return false;
 }
